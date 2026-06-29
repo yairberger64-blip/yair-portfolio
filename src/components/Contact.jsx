@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Contact({ onContactOpen }) {
+export default function Contact({ onContactOpen, onPrivacyOpen }) {
   return (
     <section
       id="contact"
@@ -118,7 +118,26 @@ export default function Contact({ onContactOpen }) {
         </p>
 
         {/* Social links */}
-        <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
+          {/* Privacy Policy */}
+          <button
+            onClick={onPrivacyOpen}
+            style={{
+              background: "none",
+              border: "none",
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: "0.7rem",
+              letterSpacing: "0.06em",
+              color: "#2E2E4E",
+              cursor: "pointer",
+              padding: 0,
+              transition: "color 0.15s ease"
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = "#8A8AB0"}
+            onMouseLeave={e => e.currentTarget.style.color = "#2E2E4E"}
+          >
+            Privacy Policy
+          </button>
           {/* Instagram */}
           <a
             href="https://www.instagram.com/dadbuildsai/"

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 /* ── Signal pulse SVG ──────────────────────────────────────────────
    Continuous looping EKG animation.
@@ -122,8 +123,9 @@ function SocialIcons() {
 }
 
 /* ── Contact overlay ───────────────────────────────────────────────── */
-function ContactOverlay({ onClose }) {
+function ContactOverlay({ onClose, onPrivacyOpen }) {
   const [submitted, setSubmitted] = useState(false);
+  const [privacyChecked, setPrivacyChecked] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -345,22 +347,63 @@ function ContactOverlay({ onClose }) {
                 />
               </div>
 
+              {/* Privacy checkbox */}
+              <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
+                <input
+                  type="checkbox"
+                  id="privacy"
+                  required
+                  checked={privacyChecked}
+                  onChange={e => setPrivacyChecked(e.target.checked)}
+                  style={{ marginTop: "0.2rem", accentColor: "#5B8DEF", flexShrink: 0 }}
+                />
+                <label
+                  htmlFor="privacy"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.8rem",
+                    color: "#8A8AB0",
+                    lineHeight: 1.5,
+                    cursor: "pointer"
+                  }}
+                >
+                  I agree to the{" "}
+                  <button
+                    type="button"
+                    onClick={onPrivacyOpen}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "#5B8DEF",
+                      cursor: "pointer",
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "0.8rem",
+                      padding: 0,
+                      textDecoration: "underline"
+                    }}
+                  >
+                    Privacy Policy
+                  </button>
+                </label>
+              </div>
+
               <button
                 type="submit"
+                disabled={!privacyChecked}
                 style={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 600,
                   fontSize: "0.95rem",
-                  background: "#5B8DEF",
-                  color: "#0A0A0F",
+                  background: privacyChecked ? "#5B8DEF" : "#2E2E4E",
+                  color: privacyChecked ? "#F0F0EC" : "#8A8AB0",
                   padding: "0.85rem 2rem",
                   borderRadius: "0.375rem",
                   border: "none",
-                  cursor: "pointer",
+                  cursor: privacyChecked ? "pointer" : "not-allowed",
                   marginTop: "0.5rem",
-                  transition: "opacity 0.15s ease"
+                  transition: "all 0.15s ease"
                 }}
-                onMouseEnter={e => e.currentTarget.style.opacity = "0.88"}
+                onMouseEnter={e => { if (privacyChecked) e.currentTarget.style.opacity = "0.88"; }}
                 onMouseLeave={e => e.currentTarget.style.opacity = "1"}
               >
                 Send message →
@@ -454,13 +497,21 @@ function Nav({ onContactOpen }) {
 
 /* ── Hero ──────────────────────────────────────────────────────────── */
 export default function Hero({ overlayOpen, setOverlayOpen }) {
+  const [privacyOpen, setPrivacyOpen] = useState(false);
 
   return (
     <>
       <Nav onContactOpen={() => setOverlayOpen(true)} />
 
       {overlayOpen && (
-        <ContactOverlay onClose={() => setOverlayOpen(false)} />
+        <ContactOverlay
+          onClose={() => setOverlayOpen(false)}
+          onPrivacyOpen={() => setPrivacyOpen(true)}
+        />
+      )}
+
+      {privacyOpen && (
+        <PrivacyPolicy onClose={() => setPrivacyOpen(false)} />
       )}
 
       <section

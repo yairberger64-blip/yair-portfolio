@@ -7,9 +7,11 @@ import Services from "./components/Services";
 import Demos from "./components/Demos";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 
 export default function App() {
   const [overlayOpen, setOverlayOpen] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
 
   return (
     <div
@@ -24,7 +26,13 @@ export default function App() {
       <Services />
       <Demos />
       <Testimonials />
-      <Contact onContactOpen={() => setOverlayOpen(true)} />
+      <Contact
+        onContactOpen={() => setOverlayOpen(true)}
+        onPrivacyOpen={() => setPrivacyOpen(true)}
+      />
+      {privacyOpen && (
+        <PrivacyPolicy onClose={() => setPrivacyOpen(false)} />
+      )}
     </div>
   );
 }
