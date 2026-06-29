@@ -130,6 +130,8 @@ function ContactOverlay({ onClose, onPrivacyOpen }) {
     name: "",
     email: "",
     reason: "",
+    company: "",
+    position: "",
     message: ""
   });
 
@@ -332,11 +334,48 @@ function ContactOverlay({ onClose, onPrivacyOpen }) {
                 </select>
               </div>
 
+              {/* Hiring fields */}
+              {form.reason === "hiring" && (
+                <>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                    <label style={labelStyle}>Company Name</label>
+                    <input
+                      type="text"
+                      name="company"
+                      required
+                      placeholder="Your company"
+                      value={form.company || ""}
+                      onChange={handleChange}
+                      style={inputStyle}
+                      onFocus={e => e.target.style.borderColor = "#5B8DEF"}
+                      onBlur={e => e.target.style.borderColor = "#1E1E2E"}
+                    />
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                    <label style={labelStyle}>Position</label>
+                    <input
+                      type="text"
+                      name="position"
+                      required
+                      placeholder="Role you're hiring for"
+                      value={form.position || ""}
+                      onChange={handleChange}
+                      style={inputStyle}
+                      onFocus={e => e.target.style.borderColor = "#5B8DEF"}
+                      onBlur={e => e.target.style.borderColor = "#1E1E2E"}
+                    />
+                  </div>
+                </>
+              )}
+
+              {/* Message field — optional by default, required for Other */}
               <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                <label style={labelStyle}>Tell me more</label>
+                <label style={labelStyle}>
+                  Tell me more{form.reason !== "other" && <span style={{ color: "#4A4A5E", marginLeft: "0.4rem" }}>(optional)</span>}
+                </label>
                 <textarea
                   name="message"
-                  required
+                  required={form.reason === "other"}
                   placeholder="What are you working on? What do you need?"
                   value={form.message}
                   onChange={handleChange}
