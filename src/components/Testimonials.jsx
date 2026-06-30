@@ -12,6 +12,12 @@ const testimonials = [
     quote: "I wasn't sure what to expect going into Yair's AI course, but it genuinely exceeded my expectations. The course was practical, easy to understand, and felt very personalized to my needs. Throughout the session, Yair asked questions about my business and tailored the content based on my answers, even giving live examples of how I could implement AI into my day-to-day operations.\n\nWhat I appreciated most was that it wasn't just a presentation, it was hands-on, relevant, and immediately actionable. I've already started using several of the tools and techniques in my business, saving time, improving efficiency, and discovering new ways to automate tasks I used to do manually.\n\nIf you're looking to learn how to actually use AI to improve your work or business, I highly recommend Yair's course. It's one of those courses where you walk away with real value from day one.",
     name: "Marty Weisel",
     title: "CEO and Founder, Effect Production Studios"
+  },
+  {
+    placeholder: false,
+    quote: "I took Yair's intro to AI masterclass and really enjoyed it. He covered everything from different models to tools and practical use cases, all in a way that was clear and easy to follow. I came in not knowing much and left with a solid understanding of how AI actually works. Would definitely recommend it to anyone curious about the topic.",
+    name: "Meirav Goldman",
+    title: "SEO and GEO Strategist"
   }
 ];
 
