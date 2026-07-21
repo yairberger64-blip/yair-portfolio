@@ -2,6 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 
 const services = [
   {
+    tag: "Consult",
+    title: "I'll guide you through it.",
+    summary: "Not sure where to start? I'll help you figure out where AI fits and how to make it work for you.",
+    details: [
+      { label: "Strategy Sessions", text: "A focused session to map out where AI can have the biggest impact in your business. You leave with clarity, not a sales pitch." },
+      { label: "Workshops", text: "Hands-on sessions for teams who want to actually use AI day-to-day. Practical, relevant, built around your tools." },
+      { label: "Advisory", text: "Ongoing support as you implement AI. Someone who's done it before, in your corner." }
+    ],
+    cta: "Book a discovery call",
+    ctaType: "calendly"
+  },
+  {
     tag: "Develop",
     title: "I'll develop it for you.",
     summary: "You bring the problem. I design and build the AI system that solves it.",
@@ -14,18 +26,6 @@ const services = [
     ],
     cta: "Get in touch",
     ctaType: "contact"
-  },
-  {
-    tag: "Consult",
-    title: "I'll guide you through it.",
-    summary: "Not sure where to start? I'll help you figure out where AI fits and how to make it work for you.",
-    details: [
-      { label: "Strategy Sessions", text: "A focused session to map out where AI can have the biggest impact in your business. You leave with clarity, not a sales pitch." },
-      { label: "Workshops", text: "Hands-on sessions for teams who want to actually use AI day-to-day. Practical, relevant, built around your tools." },
-      { label: "Advisory", text: "Ongoing support as you implement AI. Someone who's done it before, in your corner." }
-    ],
-    cta: "Book a discovery call",
-    ctaType: "calendly"
   }
 ];
 

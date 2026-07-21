@@ -1,29 +1,26 @@
 import React, { useState } from "react";
 import PrivacyPolicy from "./PrivacyPolicy";
 
-/* ── Signal pulse SVG ──────────────────────────────────────────────
-   Continuous looping EKG animation.
+/* ── Water wave ────────────────────────────────────────────────────
+   Two layered smooth waves that flow continuously, like water.
 ───────────────────────────────────────────────────────────────────── */
 function SignalPulse() {
   return (
     <>
       <style>{`
-        @keyframes pulseLoop {
-          0%   { stroke-dashoffset: 600; opacity: 0; }
-          5%   { opacity: 1; }
-          85%  { opacity: 1; }
-          100% { stroke-dashoffset: 0; opacity: 0.15; }
+        @keyframes waveFlow {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-300px); }
         }
-        .signal-line-loop {
-          stroke-dasharray: 600;
-          stroke-dashoffset: 600;
-          animation: pulseLoop 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        .wave-back {
+          animation: waveFlow 7s linear infinite;
+        }
+        .wave-front {
+          animation: waveFlow 4.5s linear infinite reverse;
         }
         @media (prefers-reduced-motion: reduce) {
-          .signal-line-loop {
+          .wave-back, .wave-front {
             animation: none;
-            stroke-dashoffset: 0;
-            opacity: 0.3;
           }
         }
         select option {
@@ -36,27 +33,31 @@ function SignalPulse() {
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         className="w-full max-w-2xl"
-        style={{ height: "60px", overflow: "visible" }}
+        style={{ height: "60px", overflow: "hidden" }}
       >
-        <polyline
-          className="signal-line-loop"
-          points="
-            0,30
-            120,30
-            150,30
-            165,8
-            180,52
-            195,15
-            210,45
-            225,30
-            260,30
-            600,30
-          "
+        {/* Back wave — slower, dimmer */}
+        <path
+          className="wave-back"
+          d="M0,30 C25,15 50,15 75,30 C100,45 125,45 150,30 C175,15 200,15 225,30 C250,45 275,45 300,30
+             C325,15 350,15 375,30 C400,45 425,45 450,30 C475,15 500,15 525,30 C550,45 575,45 600,30
+             C625,15 650,15 675,30 C700,45 725,45 750,30 C775,15 800,15 825,30 C850,45 875,45 900,30"
           fill="none"
           stroke="#5B8DEF"
           strokeWidth="1.5"
           strokeLinecap="round"
-          strokeLinejoin="round"
+          opacity="0.35"
+        />
+        {/* Front wave — faster, brighter */}
+        <path
+          className="wave-front"
+          d="M0,30 C25,42 50,42 75,30 C100,18 125,18 150,30 C175,42 200,42 225,30 C250,18 275,18 300,30
+             C325,42 350,42 375,30 C400,18 425,18 450,30 C475,42 500,42 525,30 C550,18 575,18 600,30
+             C625,42 650,42 675,30 C700,18 725,18 750,30 C775,42 800,42 825,30 C850,18 875,18 900,30"
+          fill="none"
+          stroke="#5B8DEF"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity="0.75"
         />
       </svg>
     </>
@@ -130,8 +131,6 @@ function ContactOverlay({ onClose, onPrivacyOpen }) {
     name: "",
     email: "",
     reason: "",
-    company: "",
-    position: "",
     message: ""
   });
 
@@ -325,48 +324,12 @@ function ContactOverlay({ onClose, onPrivacyOpen }) {
                   onBlur={e => e.target.style.borderColor = "#1E1E2E"}
                 >
                   <option value="" disabled>Select a reason</option>
-                  <option value="consult">I want to consult on an AI project</option>
-                  <option value="build">I want you to build something for me</option>
-                  <option value="hiring">I'm hiring</option>
-                  <option value="education">I want to learn about AI</option>
-                  <option value="connect">I just want to connect</option>
+                  <option value="consult">Explore AI consulting</option>
+                  <option value="education">Learn about AI</option>
+                  <option value="build">Request a custom AI build</option>
                   <option value="other">Other</option>
                 </select>
               </div>
-
-              {/* Hiring fields */}
-              {form.reason === "hiring" && (
-                <>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                    <label style={labelStyle}>Company Name</label>
-                    <input
-                      type="text"
-                      name="company"
-                      required
-                      placeholder="Your company"
-                      value={form.company || ""}
-                      onChange={handleChange}
-                      style={inputStyle}
-                      onFocus={e => e.target.style.borderColor = "#5B8DEF"}
-                      onBlur={e => e.target.style.borderColor = "#1E1E2E"}
-                    />
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                    <label style={labelStyle}>Position</label>
-                    <input
-                      type="text"
-                      name="position"
-                      required
-                      placeholder="Role you're hiring for"
-                      value={form.position || ""}
-                      onChange={handleChange}
-                      style={inputStyle}
-                      onFocus={e => e.target.style.borderColor = "#5B8DEF"}
-                      onBlur={e => e.target.style.borderColor = "#1E1E2E"}
-                    />
-                  </div>
-                </>
-              )}
 
               {/* Message field — optional by default, required for Other */}
               <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
