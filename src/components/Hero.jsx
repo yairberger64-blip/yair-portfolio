@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PrivacyPolicy from "./PrivacyPolicy";
 
-/* ── Water wave ────────────────────────────────────────────────────
-   Two layered smooth waves that flow continuously, like water.
+/* ── Ocean wave ────────────────────────────────────────────────────
+   A filled swell with a soft glow, flowing continuously like water.
 ───────────────────────────────────────────────────────────────────── */
 function SignalPulse() {
   return (
@@ -12,14 +12,14 @@ function SignalPulse() {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-300px); }
         }
-        .wave-back {
-          animation: waveFlow 7s linear infinite;
+        .wave-fill {
+          animation: waveFlow 8s linear infinite;
         }
-        .wave-front {
-          animation: waveFlow 4.5s linear infinite reverse;
+        .wave-line {
+          animation: waveFlow 8s linear infinite;
         }
         @media (prefers-reduced-motion: reduce) {
-          .wave-back, .wave-front {
+          .wave-fill, .wave-line {
             animation: none;
           }
         }
@@ -29,35 +29,30 @@ function SignalPulse() {
         }
       `}</style>
       <svg
-        viewBox="0 0 600 60"
+        viewBox="0 0 600 90"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         className="w-full max-w-2xl"
-        style={{ height: "60px", overflow: "hidden" }}
+        style={{ height: "90px", overflow: "hidden" }}
       >
-        {/* Back wave — slower, dimmer */}
+        {/* Soft filled swell underneath */}
         <path
-          className="wave-back"
-          d="M0,30 C25,15 50,15 75,30 C100,45 125,45 150,30 C175,15 200,15 225,30 C250,45 275,45 300,30
-             C325,15 350,15 375,30 C400,45 425,45 450,30 C475,15 500,15 525,30 C550,45 575,45 600,30
-             C625,15 650,15 675,30 C700,45 725,45 750,30 C775,15 800,15 825,30 C850,45 875,45 900,30"
-          fill="none"
-          stroke="#5B8DEF"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          opacity="0.35"
+          className="wave-fill"
+          d="M0,55 C60,25 100,25 160,50 C220,75 260,75 320,50 C380,25 420,25 480,50 C540,75 580,75 640,60
+             C700,25 740,25 800,50 C860,75 900,75 960,50 L960,90 L0,90 Z"
+          fill="#5B8DEF"
+          opacity="0.18"
         />
-        {/* Front wave — faster, brighter */}
+        {/* Crest line on top */}
         <path
-          className="wave-front"
-          d="M0,30 C25,42 50,42 75,30 C100,18 125,18 150,30 C175,42 200,42 225,30 C250,18 275,18 300,30
-             C325,42 350,42 375,30 C400,18 425,18 450,30 C475,42 500,42 525,30 C550,18 575,18 600,30
-             C625,42 650,42 675,30 C700,18 725,18 750,30 C775,42 800,42 825,30 C850,18 875,18 900,30"
+          className="wave-line"
+          d="M0,60 C60,35 100,35 160,58 C220,80 260,80 320,58 C380,35 420,35 480,58 C540,80 580,80 640,65
+             C700,35 740,35 800,58 C860,80 900,80 960,65"
           fill="none"
           stroke="#5B8DEF"
-          strokeWidth="1.5"
+          strokeWidth="2"
           strokeLinecap="round"
-          opacity="0.75"
+          opacity="0.9"
         />
       </svg>
     </>
