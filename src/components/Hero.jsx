@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import PrivacyPolicy from "./PrivacyPolicy";
 
-/* ── Ocean wave ────────────────────────────────────────────────────
-   A filled swell with a soft glow, flowing continuously like water.
+/* ── Harmonic waves ────────────────────────────────────────────────
+   Three layered sine waves at different amplitudes and speeds,
+   flowing continuously, like overlapping ripples.
 ───────────────────────────────────────────────────────────────────── */
 function SignalPulse() {
   return (
     <>
       <style>{`
-        @keyframes waveFlow {
+        @keyframes waveFlowA {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-300px); }
         }
-        .wave-fill {
-          animation: waveFlow 8s linear infinite;
+        @keyframes waveFlowB {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(300px); }
         }
-        .wave-line {
-          animation: waveFlow 8s linear infinite;
-        }
+        .wave-1 { animation: waveFlowA 6s linear infinite; }
+        .wave-2 { animation: waveFlowB 9s linear infinite; }
+        .wave-3 { animation: waveFlowA 4s linear infinite; }
         @media (prefers-reduced-motion: reduce) {
-          .wave-fill, .wave-line {
+          .wave-1, .wave-2, .wave-3 {
             animation: none;
           }
         }
@@ -29,25 +31,47 @@ function SignalPulse() {
         }
       `}</style>
       <svg
-        viewBox="0 0 600 90"
+        viewBox="0 0 600 70"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         className="w-full max-w-2xl"
-        style={{ height: "90px", overflow: "hidden" }}
+        style={{ height: "70px", overflow: "hidden" }}
       >
-        {/* Soft filled swell underneath */}
+        {/* Wave 1 — widest amplitude, dimmest, slow drift */}
         <path
-          className="wave-fill"
-          d="M0,55 C60,25 100,25 160,50 C220,75 260,75 320,50 C380,25 420,25 480,50 C540,75 580,75 640,60
-             C700,25 740,25 800,50 C860,75 900,75 960,50 L960,90 L0,90 Z"
-          fill="#5B8DEF"
-          opacity="0.18"
+          className="wave-1"
+          d="M0,35 C20,5 40,5 60,35 C80,65 100,65 120,35 C140,5 160,5 180,35 C200,65 220,65 240,35
+             C260,5 280,5 300,35 C320,65 340,65 360,35 C380,5 400,5 420,35 C440,65 460,65 480,35
+             C500,5 520,5 540,35 C560,65 580,65 600,35 C620,5 640,5 660,35 C680,65 700,65 720,35
+             C740,5 760,5 780,35 C800,65 820,65 840,35 C860,5 880,5 900,35"
+          fill="none"
+          stroke="#5B8DEF"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity="0.25"
         />
-        {/* Crest line on top */}
+        {/* Wave 2 — mid amplitude, opposite drift */}
         <path
-          className="wave-line"
-          d="M0,60 C60,35 100,35 160,58 C220,80 260,80 320,58 C380,35 420,35 480,58 C540,80 580,80 640,65
-             C700,35 740,35 800,58 C860,80 900,80 960,65"
+          className="wave-2"
+          d="M0,35 C15,20 30,20 45,35 C60,50 75,50 90,35 C105,20 120,20 135,35 C150,50 165,50 180,35
+             C195,20 210,20 225,35 C240,50 255,50 270,35 C285,20 300,20 315,35 C330,50 345,50 360,35
+             C375,20 390,20 405,35 C420,50 435,50 450,35 C465,20 480,20 495,35 C510,50 525,50 540,35
+             C555,20 570,20 585,35 C600,50 615,50 630,35"
+          fill="none"
+          stroke="#5B8DEF"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          opacity="0.5"
+        />
+        {/* Wave 3 — tightest amplitude, brightest, fast drift */}
+        <path
+          className="wave-3"
+          d="M0,35 C10,25 20,25 30,35 C40,45 50,45 60,35 C70,25 80,25 90,35 C100,45 110,45 120,35
+             C130,25 140,25 150,35 C160,45 170,45 180,35 C190,25 200,25 210,35 C220,45 230,45 240,35
+             C250,25 260,25 270,35 C280,45 290,45 300,35 C310,25 320,25 330,35 C340,45 350,45 360,35
+             C370,25 380,25 390,35 C400,45 410,45 420,35 C430,25 440,25 450,35 C460,45 470,45 480,35
+             C490,25 500,25 510,35 C520,45 530,45 540,35 C550,25 560,25 570,35 C580,45 590,45 600,35
+             C610,25 620,25 630,35"
           fill="none"
           stroke="#5B8DEF"
           strokeWidth="2"
