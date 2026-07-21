@@ -21,7 +21,7 @@ export default function About() {
         }}
         className="about-grid"
       >
-        {/* Left — image */}
+        {/* Left, image */}
         <div
           style={{
             width: "100%"
@@ -40,7 +40,7 @@ export default function About() {
           />
         </div>
 
-        {/* Right — text */}
+        {/* Right, text */}
         <div style={{ paddingTop: "1rem" }}>
           <h2
             style={{

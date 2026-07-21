@@ -172,7 +172,7 @@ function ContactOverlay({ onClose, onPrivacyOpen }) {
           position: "relative"
         }}
       >
-        {/* Close button — fixed right side, X */}
+        {/* Close button, fixed right side, X */}
         <button
           onClick={onClose}
           style={{
@@ -326,7 +326,7 @@ function ContactOverlay({ onClose, onPrivacyOpen }) {
                 </select>
               </div>
 
-              {/* Message field — optional by default, required for Other */}
+              {/* Message field, optional by default, required for Other */}
               <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
                 <label style={labelStyle}>
                   Tell me more{form.reason !== "other" && <span style={{ color: "#4A4A5E", marginLeft: "0.4rem" }}>(optional)</span>}

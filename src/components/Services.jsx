@@ -19,8 +19,8 @@ const services = [
     summary: "You bring the problem. I design and build the AI system that solves it.",
     details: [
       { label: "Agentic Systems", text: "AI agents that act autonomously, use tools, and complete tasks without you in the loop." },
-      { label: "Automation Pipelines", text: "End-to-end workflows across n8n, Make, Zapier, HubSpot, Salesforce, and more — replacing manual, repetitive work across your entire stack." },
-      { label: "MCP Architecture", text: "Multi-agent systems built on the Model Context Protocol, designed to scale." },
+      { label: "Automation Pipelines", text: "I connect the tools you already use, like your CRM, email, calendar, and spreadsheets, so they work together automatically. That means less manual, repetitive work across your entire stack." },
+      { label: "MCP Architecture", text: "Multi-agent systems that let your different platforms talk to each other. If two tools don't connect out of the box, I build the custom bridge that makes them work as one." },
       { label: "AI Content Systems", text: "Automated pipelines that produce, format, and publish content on a schedule." },
       { label: "LLM Evaluation", text: "Frameworks that measure whether your AI is actually working, structured and repeatable." }
     ],

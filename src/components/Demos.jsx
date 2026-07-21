@@ -4,10 +4,10 @@ const demos = [
   {
     id: "aria",
     tag: "Local AI Assistant",
-    name: "ARIA — Local AI Assistant",
+    name: "ARIA: Local AI Assistant",
     screenshot: "/aria.png",
     description:
-      "A fully local agentic AI assistant that runs entirely on-device. No cloud, no data leaving your machine. ARIA uses tools, manages tasks, and acts autonomously — built to show what agentic AI looks like when privacy is non-negotiable."
+      "A fully local agentic AI assistant that runs entirely on-device. No cloud, no data leaving your machine. ARIA uses tools, manages tasks, and acts autonomously. It's built to show what agentic AI looks like when privacy is non-negotiable."
   },
   {
     id: "car-finder",
@@ -24,7 +24,7 @@ const demos = [
     screenshot: "/sdr-command-center.jpeg",
     blur: false,
     description:
-      "A full outbound sales system — from raw lead list to CRM-ready handoff. Enriches leads, guides SDRs through every call outcome with enforced next steps, auto-populates emails and scripts, and syncs only clean qualified data to the CRM. Every lead gets the right treatment."
+      "A full outbound sales system, from raw lead list to CRM-ready handoff. Enriches leads, guides SDRs through every call outcome with enforced next steps, auto-populates emails and scripts, and syncs only clean qualified data to the CRM. Every lead gets the right treatment."
   },
   {
     id: "qr",
@@ -40,7 +40,7 @@ const demos = [
     name: "Morning Brief Agent",
     screenshot: "/morning-brief.png",
     description:
-      "Every morning, an AI agent checks your weather, calendar, tasks, and top news from the last 24 hours — then writes a personalised briefing and delivers it to your phone before you get out of bed. Fully automated, runs in the cloud, zero effort on your end."
+      "Every morning, an AI agent checks your weather, calendar, tasks, and top news from the last 24 hours, then writes a personalised briefing and delivers it to your phone before you get out of bed. Fully automated, runs in the cloud, zero effort on your end."
   },
   {
     id: "weekly-digest",

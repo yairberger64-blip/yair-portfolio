@@ -224,7 +224,7 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Dot indicators — position only, no numbers */}
+        {/* Dot indicators, position only, no numbers */}
         <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "1.5rem" }}>
           {testimonials.map((_, i) => (
             <button
