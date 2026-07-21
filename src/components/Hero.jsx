@@ -1,27 +1,25 @@
 import React, { useState } from "react";
 import PrivacyPolicy from "./PrivacyPolicy";
 
-/* ── Harmonic waves ────────────────────────────────────────────────
-   Three layered sine waves at different amplitudes and speeds,
-   flowing continuously, like overlapping ripples.
+/* ── Water wave ────────────────────────────────────────────────────
+   Two layered waves, larger amplitude, flowing continuously.
 ───────────────────────────────────────────────────────────────────── */
 function SignalPulse() {
   return (
     <>
       <style>{`
-        @keyframes waveFlowA {
+        @keyframes waveFlow {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-300px); }
         }
-        @keyframes waveFlowB {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(300px); }
+        .wave-back {
+          animation: waveFlow 7s linear infinite;
         }
-        .wave-1 { animation: waveFlowA 6s linear infinite; }
-        .wave-2 { animation: waveFlowB 9s linear infinite; }
-        .wave-3 { animation: waveFlowA 4s linear infinite; }
+        .wave-front {
+          animation: waveFlow 4.5s linear infinite reverse;
+        }
         @media (prefers-reduced-motion: reduce) {
-          .wave-1, .wave-2, .wave-3 {
+          .wave-back, .wave-front {
             animation: none;
           }
         }
@@ -31,52 +29,35 @@ function SignalPulse() {
         }
       `}</style>
       <svg
-        viewBox="0 0 600 70"
+        viewBox="0 0 600 110"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         className="w-full max-w-2xl"
-        style={{ height: "70px", overflow: "hidden" }}
+        style={{ height: "110px", overflow: "hidden" }}
       >
-        {/* Wave 1 — widest amplitude, dimmest, slow drift */}
+        {/* Back wave — slower, dimmer */}
         <path
-          className="wave-1"
-          d="M0,35 C20,5 40,5 60,35 C80,65 100,65 120,35 C140,5 160,5 180,35 C200,65 220,65 240,35
-             C260,5 280,5 300,35 C320,65 340,65 360,35 C380,5 400,5 420,35 C440,65 460,65 480,35
-             C500,5 520,5 540,35 C560,65 580,65 600,35 C620,5 640,5 660,35 C680,65 700,65 720,35
-             C740,5 760,5 780,35 C800,65 820,65 840,35 C860,5 880,5 900,35"
+          className="wave-back"
+          d="M0,55 C25,15 50,15 75,55 C100,95 125,95 150,55 C175,15 200,15 225,55 C250,95 275,95 300,55
+             C325,15 350,15 375,55 C400,95 425,95 450,55 C475,15 500,15 525,55 C550,95 575,95 600,55
+             C625,15 650,15 675,55 C700,95 725,95 750,55 C775,15 800,15 825,55 C850,95 875,95 900,55"
           fill="none"
           stroke="#5B8DEF"
           strokeWidth="1.5"
           strokeLinecap="round"
-          opacity="0.25"
+          opacity="0.35"
         />
-        {/* Wave 2 — mid amplitude, opposite drift */}
+        {/* Front wave — faster, brighter */}
         <path
-          className="wave-2"
-          d="M0,35 C15,20 30,20 45,35 C60,50 75,50 90,35 C105,20 120,20 135,35 C150,50 165,50 180,35
-             C195,20 210,20 225,35 C240,50 255,50 270,35 C285,20 300,20 315,35 C330,50 345,50 360,35
-             C375,20 390,20 405,35 C420,50 435,50 450,35 C465,20 480,20 495,35 C510,50 525,50 540,35
-             C555,20 570,20 585,35 C600,50 615,50 630,35"
+          className="wave-front"
+          d="M0,55 C25,90 50,90 75,55 C100,20 125,20 150,55 C175,90 200,90 225,55 C250,20 275,20 300,55
+             C325,90 350,90 375,55 C400,20 425,20 450,55 C475,90 500,90 525,55 C550,20 575,20 600,55
+             C625,90 650,90 675,55 C700,20 725,20 750,55 C775,90 800,90 825,55 C850,20 875,20 900,55"
           fill="none"
           stroke="#5B8DEF"
-          strokeWidth="1.75"
+          strokeWidth="1.5"
           strokeLinecap="round"
-          opacity="0.5"
-        />
-        {/* Wave 3 — tightest amplitude, brightest, fast drift */}
-        <path
-          className="wave-3"
-          d="M0,35 C10,25 20,25 30,35 C40,45 50,45 60,35 C70,25 80,25 90,35 C100,45 110,45 120,35
-             C130,25 140,25 150,35 C160,45 170,45 180,35 C190,25 200,25 210,35 C220,45 230,45 240,35
-             C250,25 260,25 270,35 C280,45 290,45 300,35 C310,25 320,25 330,35 C340,45 350,45 360,35
-             C370,25 380,25 390,35 C400,45 410,45 420,35 C430,25 440,25 450,35 C460,45 470,45 480,35
-             C490,25 500,25 510,35 C520,45 530,45 540,35 C550,25 560,25 570,35 C580,45 590,45 600,35
-             C610,25 620,25 630,35"
-          fill="none"
-          stroke="#5B8DEF"
-          strokeWidth="2"
-          strokeLinecap="round"
-          opacity="0.9"
+          opacity="0.75"
         />
       </svg>
     </>
