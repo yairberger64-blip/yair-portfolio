@@ -59,7 +59,7 @@ export default function About() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
             {[
-              "I'm Yair. Husband to the most amazing wife, father to the most energetic and perfect little girl Mia, and dog dad to the goofiest dog Krembo.",
+              "I'm Yair. Husband to the most amazing wife, father to the most energetic and perfect little girl, and dog dad to the goofiest dog.",
               "Life gets busy. Like really busy. Between work, daycare runs, bedtime routines, and trying to actually show up for the people you love, the days just disappear.",
               "I've been building AI systems for a while now, always for the companies I worked for. And at some point I just thought, why am I not using this for myself?",
               "So I did. I started automating the stuff that was eating my time. And it worked. Like actually worked. So I started helping other individuals do the same, and that worked well too.",

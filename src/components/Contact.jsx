@@ -138,42 +138,6 @@ export default function Contact({ onContactOpen, onPrivacyOpen }) {
           >
             Privacy Policy
           </button>
-          {/* Instagram */}
-          <a
-            href="https://www.instagram.com/dadbuildsai/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: "0.7rem",
-              letterSpacing: "0.06em",
-              color: "#2E2E4E",
-              textDecoration: "none",
-              transition: "color 0.15s ease"
-            }}
-            onMouseEnter={e => e.currentTarget.style.color = "#8A8AB0"}
-            onMouseLeave={e => e.currentTarget.style.color = "#2E2E4E"}
-          >
-            Instagram →
-          </a>
-          {/* TikTok */}
-          <a
-            href="https://www.tiktok.com/@dadbuildsai"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: "0.7rem",
-              letterSpacing: "0.06em",
-              color: "#2E2E4E",
-              textDecoration: "none",
-              transition: "color 0.15s ease"
-            }}
-            onMouseEnter={e => e.currentTarget.style.color = "#8A8AB0"}
-            onMouseLeave={e => e.currentTarget.style.color = "#2E2E4E"}
-          >
-            TikTok →
-          </a>
           {/* LinkedIn */}
           <a
             href="https://www.linkedin.com/in/yair-berger-4b9911177/"
