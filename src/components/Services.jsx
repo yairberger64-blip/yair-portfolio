@@ -4,11 +4,12 @@ const services = [
   {
     tag: "Consult",
     title: "I'll guide you through it.",
-    summary: "Not sure where to start? I'll help you figure out where AI fits and how to make it work for you.",
+    summary: "My job is to get you to a place where you feel comfortable enough with AI to find and implement a solution yourself.",
     details: [
-      { label: "Strategy Sessions", text: "A focused session to map out where AI can have the biggest impact in your business. You leave with clarity, not a sales pitch." },
-      { label: "Workshops", text: "Hands-on sessions for teams who want to actually use AI day-to-day. Practical, relevant, built around your tools." },
-      { label: "Advisory", text: "Ongoing support as you implement AI. Someone who's done it before, in your corner." }
+      { label: "1:1 Sessions", text: "Focused sessions built entirely around your business. I ask what you're working on, then tailor everything to your actual situation, with live examples you can put to use immediately." },
+      { label: "Workshops & Masterclasses", text: "From an introduction to AI for complete beginners to hands-on training for teams already using AI tools. Practical and clear, built around your world, not a generic slide deck." },
+      { label: "Advisory", text: "Ongoing support as you implement AI. Someone who's done it before, in your corner." },
+      { label: "I Follow Your Lead", text: "Some people need one conversation. Others need a few sessions before it clicks. However long it takes, we move at your pace, not mine." }
     ],
     cta: "Book a discovery call",
     ctaType: "calendly"
