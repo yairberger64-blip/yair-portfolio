@@ -141,108 +141,112 @@ export default function Testimonials() {
             <div
               style={{
                 paddingTop: "1.25rem",
-                borderTop: "1px solid #1E1E2E",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                gap: "1rem"
+                borderTop: "1px solid #1E1E2E"
               }}
             >
-              <div>
-                <p
-                  style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 700,
-                    fontSize: "1rem",
-                    color: "#F0F0EC"
-                  }}
-                >
-                  {current.name}
-                </p>
-                <p
-                  style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: "0.7rem",
-                    letterSpacing: "0.08em",
-                    color: "#5B8DEF",
-                    marginTop: "0.25rem"
-                  }}
-                >
-                  {current.title}
-                </p>
-              </div>
-
-              {/* Arrow nav */}
-              <div style={{ display: "flex", gap: "0.5rem" }}>
-                <button
-                  onClick={prev}
-                  aria-label="Previous testimonial"
-                  style={{
-                    width: "38px",
-                    height: "38px",
-                    borderRadius: "50%",
-                    border: "1px solid #1E1E2E",
-                    background: "#151520",
-                    color: "#5B8DEF",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "1rem",
-                    transition: "border-color 0.15s ease, background 0.15s ease"
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(91,141,239,0.5)"; e.currentTarget.style.background = "rgba(91,141,239,0.08)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = "#1E1E2E"; e.currentTarget.style.background = "#151520"; }}
-                >
-                  ←
-                </button>
-                <button
-                  onClick={next}
-                  aria-label="Next testimonial"
-                  style={{
-                    width: "38px",
-                    height: "38px",
-                    borderRadius: "50%",
-                    border: "1px solid #1E1E2E",
-                    background: "#151520",
-                    color: "#5B8DEF",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "1rem",
-                    transition: "border-color 0.15s ease, background 0.15s ease"
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(91,141,239,0.5)"; e.currentTarget.style.background = "rgba(91,141,239,0.08)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = "#1E1E2E"; e.currentTarget.style.background = "#151520"; }}
-                >
-                  →
-                </button>
-              </div>
+              <p
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                  color: "#F0F0EC"
+                }}
+              >
+                {current.name}
+              </p>
+              <p
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.08em",
+                  color: "#5B8DEF",
+                  marginTop: "0.25rem"
+                }}
+              >
+                {current.title}
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Dot indicators, position only, no numbers */}
-        <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "1.5rem" }}>
-          {testimonials.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              aria-label={`Go to testimonial ${i + 1}`}
-              style={{
-                width: i === index ? "20px" : "6px",
-                height: "6px",
-                borderRadius: "3px",
-                border: "none",
-                background: i === index ? "#5B8DEF" : "#1E1E2E",
-                cursor: "pointer",
-                transition: "all 0.25s ease",
-                padding: 0
-              }}
-            />
-          ))}
+        {/* Navigation row: arrows and dots together, below the card */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1.25rem",
+            marginTop: "1.75rem"
+          }}
+        >
+          <button
+            onClick={prev}
+            aria-label="Previous testimonial"
+            style={{
+              width: "38px",
+              height: "38px",
+              borderRadius: "50%",
+              border: "1px solid #1E1E2E",
+              background: "#151520",
+              color: "#5B8DEF",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "1rem",
+              flexShrink: 0,
+              transition: "border-color 0.15s ease, background 0.15s ease"
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(91,141,239,0.5)"; e.currentTarget.style.background = "rgba(91,141,239,0.08)"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "#1E1E2E"; e.currentTarget.style.background = "#151520"; }}
+          >
+            ←
+          </button>
+
+          {/* Dot indicators, position only, no numbers */}
+          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Go to testimonial ${i + 1}`}
+                style={{
+                  width: i === index ? "20px" : "6px",
+                  height: "6px",
+                  borderRadius: "3px",
+                  border: "none",
+                  background: i === index ? "#5B8DEF" : "#1E1E2E",
+                  cursor: "pointer",
+                  transition: "all 0.25s ease",
+                  padding: 0
+                }}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={next}
+            aria-label="Next testimonial"
+            style={{
+              width: "38px",
+              height: "38px",
+              borderRadius: "50%",
+              border: "1px solid #1E1E2E",
+              background: "#151520",
+              color: "#5B8DEF",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "1rem",
+              flexShrink: 0,
+              transition: "border-color 0.15s ease, background 0.15s ease"
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(91,141,239,0.5)"; e.currentTarget.style.background = "rgba(91,141,239,0.08)"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "#1E1E2E"; e.currentTarget.style.background = "#151520"; }}
+          >
+            →
+          </button>
         </div>
       </div>
     </section>
