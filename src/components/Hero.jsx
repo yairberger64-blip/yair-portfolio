@@ -1,146 +1,61 @@
 import React, { useState } from "react";
 import PrivacyPolicy from "./PrivacyPolicy";
 
-/* ── Compass needle ────────────────────────────────────────────────
-   Starts spinning erratically, then settles into a steady point,
-   visualizing the headline's own arc: overwhelming, then clear.
-   Hovering sets it spinning again, and it re-settles on mouse leave.
+/* ── Water wave ────────────────────────────────────────────────────
+   Two layered waves, larger amplitude, flowing continuously.
 ───────────────────────────────────────────────────────────────────── */
 function SignalPulse() {
   return (
     <>
       <style>{`
-        @keyframes needleSettle {
-          0%   { transform: rotate(0deg); }
-          8%   { transform: rotate(320deg); }
-          16%  { transform: rotate(140deg); }
-          24%  { transform: rotate(410deg); }
-          32%  { transform: rotate(205deg); }
-          40%  { transform: rotate(300deg); }
-          50%  { transform: rotate(248deg); }
-          62%  { transform: rotate(268deg); }
-          74%  { transform: rotate(255deg); }
-          86%  { transform: rotate(261deg); }
-          100% { transform: rotate(258deg); }
+        @keyframes waveFlow {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-300px); }
         }
-        @keyframes needleDrift {
-          0%, 100% { transform: rotate(258deg); }
-          50%      { transform: rotate(262deg); }
+        .wave-back {
+          animation: waveFlow 7s linear infinite;
         }
-        @keyframes needleSpin {
-          from { transform: rotate(258deg); }
-          to   { transform: rotate(618deg); }
-        }
-        .compass-needle {
-          transform-origin: 60px 60px;
-          animation: needleSettle 3.2s cubic-bezier(0.22, 0.61, 0.36, 1) 1,
-                     needleDrift 4s ease-in-out 3.2s infinite;
-        }
-        .compass-wrapper:hover .compass-needle {
-          animation: needleSpin 1.2s linear infinite !important;
-        }
-        .compass-ring {
-          animation: ringFadeIn 1.4s ease forwards;
-          opacity: 0;
-        }
-        @keyframes ringFadeIn {
-          to { opacity: 1; }
+        .wave-front {
+          animation: waveFlow 4.5s linear infinite reverse;
         }
         @media (prefers-reduced-motion: reduce) {
-          .compass-needle {
+          .wave-back, .wave-front {
             animation: none;
-            transform: rotate(258deg);
-            transform-origin: 60px 60px;
-          }
-          .compass-wrapper:hover .compass-needle {
-            animation: none !important;
-          }
-          .compass-ring {
-            animation: none;
-            opacity: 1;
           }
         }
       `}</style>
-      <div className="compass-wrapper" style={{ display: "inline-block", cursor: "pointer" }}>
-        <svg
-          viewBox="0 0 120 120"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-          style={{ width: "110px", height: "110px" }}
-        >
-          {/* Outer ring */}
-          <circle
-            className="compass-ring"
-            cx="60" cy="60" r="54"
-            fill="none"
-            stroke="#5B8DEF"
-            strokeWidth="1.5"
-            opacity="0.35"
-          />
-          {/* Inner ring */}
-          <circle
-            className="compass-ring"
-            cx="60" cy="60" r="44"
-            fill="none"
-            stroke="#5B8DEF"
-            strokeWidth="1"
-            opacity="0.2"
-          />
-          {/* Cardinal ticks */}
-          {[0, 90, 180, 270].map((deg) => (
-            <line
-              key={deg}
-              x1="60" y1="8" x2="60" y2="16"
-              stroke="#5B8DEF"
-              strokeWidth="2"
-              strokeLinecap="round"
-              opacity="0.5"
-              transform={`rotate(${deg} 60 60)`}
-            />
-          ))}
-          {/* Minor ticks */}
-          {[45, 135, 225, 315].map((deg) => (
-            <line
-              key={deg}
-              x1="60" y1="10" x2="60" y2="15"
-              stroke="#5B8DEF"
-              strokeWidth="1"
-              strokeLinecap="round"
-              opacity="0.25"
-              transform={`rotate(${deg} 60 60)`}
-            />
-          ))}
-          {/* Cardinal labels */}
-          {[
-            { label: "N", x: 60, y: 26 },
-            { label: "E", x: 94, y: 60 },
-            { label: "S", x: 60, y: 98 },
-            { label: "W", x: 26, y: 60 }
-          ].map((c) => (
-            <text
-              key={c.label}
-              x={c.x}
-              y={c.y}
-              textAnchor="middle"
-              dominantBaseline="central"
-              fontFamily="'JetBrains Mono', monospace"
-              fontSize="10"
-              fontWeight="700"
-              fill="#5B8DEF"
-              opacity="0.6"
-            >
-              {c.label}
-            </text>
-          ))}
-          {/* Needle */}
-          <g className="compass-needle">
-            <path d="M60,18 L67,60 L60,102 L53,60 Z" fill="#5B8DEF" opacity="0.9" />
-            <path d="M60,18 L67,60 L60,60 Z" fill="#7AA5F5" opacity="0.95" />
-          </g>
-          {/* Center pivot */}
-          <circle cx="60" cy="60" r="4" fill="#0A0A0F" stroke="#5B8DEF" strokeWidth="1.5" />
-        </svg>
-      </div>
+      <svg
+        viewBox="0 0 600 110"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        className="w-full max-w-2xl"
+        style={{ height: "110px", overflow: "hidden" }}
+      >
+        {/* Back wave, slower, dimmer */}
+        <path
+          className="wave-back"
+          d="M0,55 C25,15 50,15 75,55 C100,95 125,95 150,55 C175,15 200,15 225,55 C250,95 275,95 300,55
+             C325,15 350,15 375,55 C400,95 425,95 450,55 C475,15 500,15 525,55 C550,95 575,95 600,55
+             C625,15 650,15 675,55 C700,95 725,95 750,55 C775,15 800,15 825,55 C850,95 875,95 900,55"
+          fill="none"
+          stroke="#5B8DEF"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity="0.35"
+        />
+        {/* Front wave, faster, brighter */}
+        <path
+          className="wave-front"
+          d="M0,55 C25,90 50,90 75,55 C100,20 125,20 150,55 C175,90 200,90 225,55 C250,20 275,20 300,55
+             C325,90 350,90 375,55 C400,20 425,20 450,55 C475,90 500,90 525,55 C550,20 575,20 600,55
+             C625,90 650,90 675,55 C700,20 725,20 750,55 C775,90 800,90 825,55 C850,20 875,20 900,55"
+          fill="none"
+          stroke="#5B8DEF"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity="0.75"
+        />
+      </svg>
     </>
   );
 }
@@ -491,16 +406,29 @@ function Nav({ onContactOpen }) {
       }}
     >
       {/* Wordmark */}
-      <span
-        style={{
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontWeight: 700,
-          fontSize: "1rem",
-          letterSpacing: "-0.01em",
-          color: "#F0F0EC"
-        }}
-      >
-        Compass Forge <span style={{ color: "#5B8DEF" }}>AI</span>
+      <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <svg
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="9.5" fill="none" stroke="#5B8DEF" strokeWidth="1.5" opacity="0.6" />
+          <path d="M15.5,8.5 L13,13 L8.5,15.5 L11,11 Z" fill="#5B8DEF" opacity="0.9" />
+          <circle cx="12" cy="12" r="1.3" fill="#0A0A0F" stroke="#5B8DEF" strokeWidth="1" />
+        </svg>
+        <span
+          style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: 700,
+            fontSize: "1rem",
+            letterSpacing: "-0.01em",
+            color: "#F0F0EC"
+          }}
+        >
+          Compass Forge <span style={{ color: "#5B8DEF" }}>AI</span>
+        </span>
       </span>
 
       {/* Nav links */}
