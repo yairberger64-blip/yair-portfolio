@@ -1,0 +1,28 @@
+# Compass Forge AI, robots.txt
+
+User-agent: *
+Allow: /
+
+# AI and LLM crawlers, explicitly allowed for citation and discovery
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://www.compassforgeai.com/sitemap.xml

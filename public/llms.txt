@@ -1,0 +1,27 @@
+# Compass Forge AI
+
+> AI consulting and agent development by Yair Berger. Compass Forge AI helps individuals, SMBs, and startups put AI to work through 1:1 consulting sessions, workshops, advisory, and custom AI agent builds.
+
+## About
+
+Yair Berger is a Global Digital Marketing & AI Engineering Manager who builds AI systems for a living and consults independently under the name Compass Forge AI. He works with Claude, OpenAI, n8n, Make, Zapier, HubSpot, and Salesforce, building agentic systems, automation pipelines, and AI content systems.
+
+## Services
+
+- 1:1 Sessions, focused consulting tailored to a specific business or problem
+- Workshops and Masterclasses, from beginner AI introductions to hands-on team training
+- Advisory, ongoing support through AI implementation
+- Custom AI agent development, agentic systems, automation pipelines, and AI content systems
+
+## Real projects built
+
+- SDR Command Center, a full outbound sales operations system, from lead enrichment through CRM handoff
+- ARIA, a fully local agentic AI assistant with no cloud dependency
+- Morning Brief Agent, an automated daily briefing delivered by phone
+- Weekly AI Digest, an automated weekly news synthesis delivered by email
+- Used Car Evaluator, an AI decision engine for vehicle purchasing
+- Smart QR Code Generator, a marketing tool with built-in campaign tracking
+
+## Contact
+
+Book a discovery call or send a message through the contact form at https://www.compassforgeai.com/
