@@ -2,7 +2,7 @@
 
 A silent 3D animated short about how Yair and Sharone met: three years of bad timing, one persistent friend, and a family preparing for its next chapter.
 
-- **Watch:** `renders/opening_previs_v001.mp4` (opening 38 s, previs v001)
+- **Watch:** `renders/opening_previs_v002.mp4` (opening 38 s, previs v002)
 - **Status and decisions needed:** `docs/production_status.md`
 - **What's true vs. invented:** `docs/fact_ledger.md`
 - **Pipeline, blockers, costs:** `docs/pipeline_recommendation.md`

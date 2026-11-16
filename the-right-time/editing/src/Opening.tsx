@@ -92,7 +92,7 @@ export const Opening: React.FC<{withAudio?: boolean}> = ({withAudio = true}) => 
       <NameTag name="Sharone" a={648} d={706} x={1120} y={300} />
       {/* honest slate: this is previs, not final likeness */}
       <div style={{position: 'absolute', top: 34, right: 44, color: 'rgba(255,255,255,0.55)', fontFamily: 'Inter, sans-serif', fontSize: 18, letterSpacing: 2, textTransform: 'uppercase'}}>
-        The Right Time · Opening · Previs v001 · placeholder likenesses
+        The Right Time · Opening · Previs v002 · Katelyn placeholder
       </div>
       <AbsoluteFill style={{background: '#000', opacity: Math.max(fadeIn, fadeOut)}} />
       {withAudio && <Audio src={staticFile('audio/opening_mix_v001.wav')} />}

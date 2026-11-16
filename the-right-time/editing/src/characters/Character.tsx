@@ -167,6 +167,40 @@ const Hair: React.FC<{spec: CharSpec}> = ({spec}) => {
           </mesh>
         </group>
       );
+    case 'floppy':
+      return (
+        <group>
+          {cap(1.42, -0.25, 1.08)}
+          <mesh rotation={[-Math.PI / 2 + 0.25, 0, 0]} material={m}>
+            <sphereGeometry args={[R * 1.05, 32, 16, 0, Math.PI * 2, 0, 1.25]} />
+          </mesh>
+          {/* tousled volume on top */}
+          <mesh position={[0, R * 0.9, R * 0.1]} scale={[1.25, 0.6, 1.25]} material={m} castShadow>
+            <sphereGeometry args={[0.1, 20, 14]} />
+          </mesh>
+          {/* fringe falling across the forehead, swept toward the character's left */}
+          <mesh position={[-0.01, R * 0.52, R * 0.8]} rotation={[1.25, 0.1, -0.32]} scale={[1.95, 0.32, 0.9]} material={m} castShadow>
+            <sphereGeometry args={[0.068, 22, 14]} />
+          </mesh>
+          <mesh position={[0.075, R * 0.4, R * 0.82]} rotation={[1.3, 0.25, -0.75]} scale={[1.3, 0.3, 0.8]} material={m}>
+            <sphereGeometry args={[0.058, 18, 12]} />
+          </mesh>
+        </group>
+      );
+    case 'toddlerWavy':
+      return (
+        <group>
+          {cap(1.5, -0.2, 1.08)}
+          {Array.from({length: 8}).map((_, i) => {
+            const a = Math.PI * 0.15 + (i / 7) * Math.PI * 0.7;
+            return (
+              <mesh key={i} position={[Math.cos(a) * R * 1.0, -R * 0.2, -Math.sin(a) * R * 0.6]} scale={[0.8, 1.4, 0.8]} material={m}>
+                <sphereGeometry args={[0.05, 12, 10]} />
+              </mesh>
+            );
+          })}
+        </group>
+      );
     case 'shortCurly':
       return (
         <group>
@@ -184,16 +218,32 @@ const Hair: React.FC<{spec: CharSpec}> = ({spec}) => {
     case 'long':
       return (
         <group>
-          {cap(1.5, -0.12, 1.08)}
-          {/* back curtain */}
+          {cap(1.45, -0.42, 1.07)}
+          {/* side part: hair swept back off the forehead */}
+          <mesh position={[-0.035, R * 0.82, R * 0.42]} rotation={[0.55, 0, 0.45]} scale={[1.5, 0.45, 1.1]} material={m}>
+            <sphereGeometry args={[0.075, 18, 12]} />
+          </mesh>
+          {/* back curtain, with lighter caramel ends */}
           <mesh position={[0, -R * 0.95, -R * 0.42]} scale={[R * 1.12, R * 2.1, R * 0.62]} material={m} castShadow>
             <sphereGeometry args={[1, 28, 20]} />
           </mesh>
+          {spec.hairTip && (
+            <mesh position={[0, -R * 2.2, -R * 0.4]} scale={[R * 1.02, R * 1.0, R * 0.58]} material={mat(spec.hairTip, 0.5)}>
+              <sphereGeometry args={[1, 24, 16]} />
+            </mesh>
+          )}
           {/* side locks framing the face */}
           {[1, -1].map((s) => (
-            <mesh key={s} position={[s * R * 0.9, -R * 0.75, R * 0.05]} rotation={[0.05, 0, s * 0.06]} scale={[0.55, 1, 0.6]} material={m} castShadow>
-              <capsuleGeometry args={[0.07, 0.26, 8, 14]} />
-            </mesh>
+            <group key={s}>
+              <mesh position={[s * R * 0.9, -R * 0.75, R * 0.05]} rotation={[0.05, 0, s * 0.06]} scale={[0.55, 1, 0.6]} material={m} castShadow>
+                <capsuleGeometry args={[0.07, 0.26, 8, 14]} />
+              </mesh>
+              {spec.hairTip && (
+                <mesh position={[s * R * 0.93, -R * 1.85, R * 0.03]} scale={[0.5, 1.3, 0.55]} material={mat(spec.hairTip, 0.5)}>
+                  <sphereGeometry args={[0.075, 14, 10]} />
+                </mesh>
+              )}
+            </group>
           ))}
         </group>
       );
@@ -292,6 +342,17 @@ const Face: React.FC<{spec: CharSpec; pose: Pose}> = ({spec, pose}) => {
           <torusGeometry args={[0.028, 0.0055, 8, 24, Math.PI]} />
         </mesh>
       </group>
+      {spec.noseStud && (
+        <mesh position={[0.016, -0.026, 0.158]} material={mat('#e8e8ec', 0.15, {metalness: 0.9})}>
+          <sphereGeometry args={[0.0035, 8, 6]} />
+        </mesh>
+      )}
+      {spec.earrings &&
+        [1, -1].map((s) => (
+          <mesh key={`e${s}`} position={[s * R * 0.99, -0.05, 0.0]} material={mat('#d9c08a', 0.2, {metalness: 0.8})}>
+            <sphereGeometry args={[0.009, 10, 8]} />
+          </mesh>
+        ))}
       {/* ears */}
       {[1, -1].map((s) => (
         <mesh key={s} position={[s * R * 0.98, -0.005, -0.005]} scale={[0.45, 1, 0.75]} material={mat(spec.skin, 0.55)}>
@@ -362,9 +423,14 @@ export const Character: React.FC<{spec: CharSpec; pose: Pose}> = ({spec, pose}) 
           </group>
           {/* head */}
           <group position={[0, torsoTop + 0.25 + shrugY * 0.3, 0.01]} rotation={[pose.headPitch, pose.headYaw, pose.headTilt]} scale={HEAD_SCALE}>
-            <mesh scale={[0.97, 1.07, 0.98]} castShadow material={mat(spec.skin, 0.55)}>
+            <mesh scale={[0.97 * (spec.head?.[0] ?? 1), 1.07 * (spec.head?.[1] ?? 1), 0.98]} castShadow material={mat(spec.skin, 0.55)}>
               <sphereGeometry args={[R, 40, 28]} />
             </mesh>
+            {spec.head && spec.head[1] > 1.08 && (
+              <mesh position={[0, -0.105, 0.05]} scale={[0.78, 0.62, 0.8]} material={mat(spec.skin, 0.55)}>
+                <sphereGeometry args={[0.1, 20, 14]} />
+              </mesh>
+            )}
             <Face spec={spec} pose={pose} />
             <Hair spec={spec} />
           </group>

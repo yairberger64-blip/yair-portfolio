@@ -41,9 +41,9 @@ Every scene must be traceable to this ledger. If a shot depicts something in the
 |---|----------|--------|
 | O1 | The exact month they became boyfriend/girlfriend (about March 2021?) | Ch.5 calendar beat |
 | O2 | Wedding year and setting (or keep it symbolic?) | Ch.6 |
-| O3 | Mia's birth year and her current age/appearance | Ch.6–7 |
+| O3 | Mia's birth year and current age (appearance now referenced from a photo) | Ch.6–7 |
 | O4 | Did Sharone have a roommate change, or keep the same apartment until 2020? | Ch.4 set continuity |
 | O5 | US destination city (or keep it generic?) | Ch.7 final image |
-| O6 | Katelyn's consent to appear, plus reference photos | All chapters |
+| O6 | Katelyn's consent to appear, plus reference photos (Yair, Sharone and Mia photos received 2026-11-16) | All chapters |
 | O7 | Any objects/places with personal meaning that could recur as motifs | Visual language |
 | O8 | Ch.3: how much to show of the difficult relationships (both of you should approve) | Ch.3 |

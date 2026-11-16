@@ -1,8 +1,8 @@
 asset_id,path,type,version,source,generation_settings,license,approval
 EDIT-OPEN,editing/src/Opening.tsx,edit decision list,v001,authored (Claude Code),24fps 1920x1080 912 frames,owned/original,pending review
 CHR-RIG,editing/src/characters/Character.tsx,3D character rig,v001,authored,procedural primitives; head scale 1.3,owned/original,previs only
-CHR-YAIR17,editing/src/characters/specs.ts#YAIR_2017,character spec,v001,derived from public/yair.jpg (1 photo; date unknown),colour sampling by eye,owned,needs more refs
-CHR-SHARONE17,editing/src/characters/specs.ts#SHARONE_2017,character spec,v001,PLACEHOLDER (no reference),—,owned,BLOCKED: photos needed
+CHR-YAIR17,editing/src/characters/specs.ts#YAIR_2017,character spec,v002,derived from 4 photos posted Jun-Aug 2019 (local references/ only),colour sampling by eye; long-face head [0.92 1.12],owned,pending your review
+CHR-SHARONE17,editing/src/characters/specs.ts#SHARONE_2017,character spec,v002,derived from 4 photos posted 2019-2021 (local references/ only),colour sampling by eye,owned,pending your + Sharone's review
 CHR-KATELYN17,editing/src/characters/specs.ts#KATELYN_2017,character spec,v001,PLACEHOLDER (no reference),—,owned,BLOCKED: photos + consent
 SET-OFFICE,editing/src/sets/Office.tsx,3D set,v001,authored; creative reconstruction,procedural; generic Jerusalem skyline,owned/original,pending review
 SET-APT,editing/src/sets/Apartment.tsx,3D set,v001,authored; creative reconstruction,procedural,owned/original,pending review
@@ -10,5 +10,7 @@ MUS-OPEN-MID,music/opening_cue_v001.mid,score (MIDI),v001,composed in music/comp
 MUS-OPEN-WAV,music/opening_cue_v001.wav,score (audio),v001,FluidSynth 2.3.4 + FluidR3_GM.sf2,gain 0.5; 48 kHz,original composition; soundfont MIT,pending review
 SFX-OPEN,sound_effects/opening_sfx_v001.wav,SFX + ambience stem,v001,synthesised in make_sfx_opening.py,numpy/scipy; seed 2017,owned/original,pending review
 MIX-OPEN,audio/opening_mix_v001.wav,final mix,v001,music*0.85 + sfx; peak -1 dBFS,—,owned/original,pending review
-REN-OPEN,renders/opening_previs_v001.mp4,review render,v001,Remotion 4.0.544 + swangle; ffmpeg loudnorm -16 LUFS,h264 crf18 + aac 192k,owned/original,awaiting approval
+REN-OPEN,renders/opening_previs_v002.mp4,review render,v002,Remotion 4.0.544 + swangle; ffmpeg loudnorm -16 LUFS,h264 crf18 + aac 192k,owned/original,awaiting approval
 REF-YAIR-01,public/yair.jpg (repo root),reference photo,—,supplied (existing portfolio image),—,personal,used for Yair spec
+CHR-MIA,editing/src/characters/specs.ts#MIA_PRESENT,character spec,v001,derived from 1 playground photo (local only),—,owned,needs toddler rig
+REF-LOCAL,references/ (gitignored),reference photos,—,supplied by Yair 2026-11-16 (Facebook screenshots + 1 photo),third-party person cropped out,personal - do not publish,kept local

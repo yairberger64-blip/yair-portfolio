@@ -1,4 +1,4 @@
-# Review — Opening Previs v001
+# Review — Opening Previs v001 → v002
 
 Reviewed by inspecting rendered stills (17 key frames, `reviews/stills/`) and the audio spectrogram (`reviews/opening_mix_v001_spectrum.png`).
 
@@ -26,3 +26,9 @@ Reviewed by inspecting rendered stills (17 key frames, `reviews/stills/`) and th
 1. Does the "crush at the coffee corner" beat feel right to you, or should C4 be shown differently (e.g. Yair texting someone)?
 2. Is Katelyn's playful deadpan in character for her?
 3. Should the name tags stay?
+
+## v002 (2026-11-16): likeness pass from supplied photos
+- Yair: floppy fringe across the forehead, longer face with a defined chin, slimmer build, heathered navy tee.
+- Sharone: no bangs, side-swept long hair with caramel ends, nose stud and earrings, pink cardigan over blue, jeans.
+- Katelyn: unchanged placeholder.
+- The phone-photo textures inherit the new colours automatically.
