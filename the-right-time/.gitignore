@@ -1,0 +1,4 @@
+editing/node_modules/
+editing/.cache/
+*_silent.mp4
+editing/public/audio/*.wav
