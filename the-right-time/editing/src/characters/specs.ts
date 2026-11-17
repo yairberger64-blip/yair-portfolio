@@ -10,7 +10,7 @@
  *   Long wavy dark-brown hair with caramel ends, warm complexion, brown eyes, wide smile,
  *   small nose stud, drop earrings. Wardrobe ref: pink knit cardigan over a blue top (Jan 2019).
  * - Mia: one recent playground photo — wavy strawberry-blonde hair, brown eyes, rosy cheeks.
- * - Katelyn: STILL A PLACEHOLDER — no reference photos and consent not yet confirmed.
+ * - Katelyn: Jun 2019 Philadelphia selfie — shoulder-length wavy honey-brown hair, grey-blue eyes, rosy cheeks.
  */
 export type HairStyle = 'shortSide' | 'floppy' | 'long' | 'ponytail' | 'bun' | 'shortCurly' | 'toddlerWavy';
 
