@@ -1,0 +1,108 @@
+import React from 'react';
+import {AbsoluteFill, Audio, Img, Sequence, interpolate, staticFile, useCurrentFrame, Easing} from 'remotion';
+
+/**
+ * THE RIGHT TIME — storybook cut. Stills generated in Gemini from the locked hero portraits,
+ * animated with slow camera moves and dissolves. Frames live in public/frames/fNN.jpg (local only).
+ */
+const FPS = 24;
+const XF = 24; // 1 s crossfade
+
+type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string};
+export const BEATS: Beat[] = [
+  {n: 1, sec: 8, caption: 'Jerusalem', sub: '2017', move: 'in'},
+  {n: 2, sec: 9, move: 'right'},
+  {n: 3, sec: 8, move: 'in'},
+  {n: 4, sec: 10, move: 'left'},
+  {n: 5, sec: 8, move: 'right'},
+  {n: 6, sec: 7, move: 'in', split: 'f06b'}, // split-screen: Yair's university | Sharone's OT studies
+  {n: 7, sec: 8, move: 'in'},
+  {n: 8, sec: 8, move: 'in'},
+  {n: 9, sec: 7, caption: '2020', move: 'right'},
+  {n: 10, sec: 10, caption: 'Finally', move: 'in'},
+  {n: 11, sec: 9, move: 'left'},
+  {n: 12, sec: 10, caption: 'July 2021', move: 'in'},
+  {n: 13, sec: 9, move: 'up'},
+  {n: 14, sec: 10, move: 'out'},
+  {n: 15, sec: 8, move: 'right'},
+  {n: 16, sec: 9, move: 'in'},
+  {n: 17, sec: 8, move: 'up'},
+];
+const TITLE_SEC = 7;
+
+export const starts = (() => {
+  const s: number[] = [];
+  let t = 0;
+  for (const b of BEATS) {
+    s.push(t);
+    t += b.sec * FPS - XF;
+  }
+  return {s, end: t + XF};
+})();
+export const STORYBOOK_FRAMES = starts.end + TITLE_SEC * FPS;
+
+const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
+  const f = useCurrentFrame();
+  const t = interpolate(f, [0, dur], [0, 1], {easing: Easing.inOut(Easing.sin)});
+  const op = interpolate(f, [0, XF, dur - XF, dur], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  let scale = 1.06 + 0.08 * t;
+  let x = 0;
+  let y = 0;
+  if (b.move === 'out') scale = 1.16 - 0.1 * t;
+  if (b.move === 'left') x = 2.5 - 5 * t;
+  if (b.move === 'right') x = -2.5 + 5 * t;
+  if (b.move === 'up') y = 2 - 4 * t;
+  const capO = interpolate(f, [18, 36, dur - 40, dur - 22], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  return (
+    <AbsoluteFill style={{opacity: b.n === 1 ? Math.max(op, f > XF ? 1 : op) : op}}>
+      {b.split ? (
+        <div style={{display: 'flex', width: '100%', height: '100%', gap: 6, background: '#111'}}>
+          {[`f${String(b.n).padStart(2, '0')}`, b.split].map((name, k) => (
+            <div key={name} style={{flex: 1, overflow: 'hidden'}}>
+              <Img
+                src={staticFile(`frames/${name}.jpg`)}
+                style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${scale}) translate(${(k ? 1 : -1) * 1.5 * t}%, 0)`}}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <Img
+          src={staticFile(`frames/f${String(b.n).padStart(2, '0')}.jpg`)}
+          style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${scale}) translate(${x}%, ${y}%)`}}
+        />
+      )}
+      {b.caption && (
+        <div style={{position: 'absolute', left: 110, bottom: 96, opacity: capO, color: '#fff8ee', fontFamily: 'Inter, sans-serif', textShadow: '0 2px 22px rgba(0,0,0,0.55)'}}>
+          <div style={{fontSize: 50, fontWeight: 600, letterSpacing: 1}}>{b.caption}</div>
+          {b.sub && <div style={{fontSize: 26, letterSpacing: 5, textTransform: 'uppercase', opacity: 0.85, marginTop: 6}}>{b.sub}</div>}
+        </div>
+      )}
+    </AbsoluteFill>
+  );
+};
+
+export const Storybook: React.FC<{withAudio?: boolean}> = ({withAudio = true}) => {
+  const f = useCurrentFrame();
+  const titleStart = starts.end - XF;
+  const titleO = interpolate(f, [titleStart + 12, titleStart + 48, STORYBOOK_FRAMES - 30, STORYBOOK_FRAMES - 4], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const fadeIn = interpolate(f, [0, 24], [1, 0], {extrapolateRight: 'clamp'});
+  return (
+    <AbsoluteFill style={{background: '#000'}}>
+      {BEATS.map((b, i) => {
+        const dur = b.sec * FPS;
+        return (
+          <Sequence key={b.n} from={starts.s[i]} durationInFrames={i === BEATS.length - 1 ? dur + TITLE_SEC * FPS : dur}>
+            <Still b={b} dur={i === BEATS.length - 1 ? dur + TITLE_SEC * FPS : dur} />
+          </Sequence>
+        );
+      })}
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 58%, rgba(0,0,0,0.35) 100%)'}} />
+      <AbsoluteFill style={{background: `rgba(0,0,0,${0.45 * titleO})`, alignItems: 'center', justifyContent: 'center'}}>
+        <div style={{opacity: titleO, color: '#fff8ee', fontFamily: 'Inter, sans-serif', fontSize: 104, fontWeight: 300, letterSpacing: 22, textShadow: '0 4px 30px rgba(0,0,0,0.5)'}}>THE RIGHT TIME</div>
+      </AbsoluteFill>
+      <AbsoluteFill style={{background: '#000', opacity: fadeIn}} />
+      {withAudio && <Audio src={staticFile('audio/storybook_mix_v001.wav')} />}
+    </AbsoluteFill>
+  );
+};

@@ -4,3 +4,4 @@ editing/.cache/
 editing/public/audio/*.wav
 references/
 renders/.render_*.log
+public/frames/
