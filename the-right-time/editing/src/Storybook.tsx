@@ -26,7 +26,7 @@ export const BEATS: Beat[] = [
   {n: 13, sec: 9, move: 'up', fx: ['petals']},
   {n: 14, sec: 10, move: 'out'},
   {n: 15, sec: 8, move: 'right'},
-  {n: 16, sec: 9, move: 'in', fx: ['motes']},
+  {n: 16, sec: 9, move: 'in', fx: ['motes'], clip: 'c16.mp4', clipSec: 5.0},
   {n: 17, sec: 8, move: 'up', fx: ['birds', 'motes']},
 ];
 const TITLE_SEC = 7;
