@@ -12,7 +12,7 @@ const XF = 24; // 1 s crossfade
 type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string; fx?: ('rain' | 'petals' | 'birds' | 'motes' | 'glow')[]; clip?: string; clipSec?: number};
 export const BEATS: Beat[] = [
   {n: 1, sec: 8, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['birds', 'motes']},
-  {n: 2, sec: 9, move: 'right'},
+  {n: 2, sec: 9, move: 'right', clip: 'c02.mp4', clipSec: 5.0},
   {n: 3, sec: 8, move: 'in'},
   {n: 4, sec: 10, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
   {n: 5, sec: 8, move: 'right', fx: ['motes']},
