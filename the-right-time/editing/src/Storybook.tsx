@@ -23,7 +23,7 @@ export const BEATS: Beat[] = [
   {n: 10, sec: 10, caption: 'Finally', move: 'in'},
   {n: 11, sec: 9, move: 'left'},
   {n: 12, sec: 10, caption: 'July 2021', move: 'in', fx: ['glow']},
-  {n: 13, sec: 9, move: 'up', fx: ['petals']},
+  {n: 13, sec: 9, move: 'up', fx: ['petals'], clip: 'c13.mp4', clipSec: 1.4},
   {n: 14, sec: 10, move: 'out'},
   {n: 15, sec: 8, move: 'right'},
   {n: 16, sec: 9, move: 'in', fx: ['motes'], clip: 'c16.mp4', clipSec: 5.0},
@@ -89,7 +89,7 @@ const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
         />
       )}
       {!b.clip && b.fx?.includes('rain') && <Rain />}
-      {!b.clip && b.fx?.includes('petals') && <Petals />}
+      {b.fx?.includes('petals') && <Petals />}
       {!b.clip && b.fx?.includes('birds') && <Birds />}
       {!b.clip && b.fx?.includes('motes') && <Motes />}
       {!b.clip && b.fx?.includes('glow') && <Glow />}
