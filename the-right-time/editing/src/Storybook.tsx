@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Img, Sequence, interpolate, staticFile, useCurrentFrame, Easing} from 'remotion';
+import {AbsoluteFill, Audio, Img, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame, Easing} from 'remotion';
+import {Birds, Glow, Motes, Petals, Rain} from './fx';
 
 /**
  * THE RIGHT TIME — storybook cut. Stills generated in Gemini from the locked hero portraits,
@@ -8,25 +9,25 @@ import {AbsoluteFill, Audio, Img, Sequence, interpolate, staticFile, useCurrentF
 const FPS = 24;
 const XF = 24; // 1 s crossfade
 
-type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string};
+type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string; fx?: ('rain' | 'petals' | 'birds' | 'motes' | 'glow')[]; clip?: string; clipSec?: number};
 export const BEATS: Beat[] = [
-  {n: 1, sec: 8, caption: 'Jerusalem', sub: '2017', move: 'in'},
+  {n: 1, sec: 8, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['birds', 'motes']},
   {n: 2, sec: 9, move: 'right'},
   {n: 3, sec: 8, move: 'in'},
-  {n: 4, sec: 10, move: 'left'},
-  {n: 5, sec: 8, move: 'right'},
+  {n: 4, sec: 10, move: 'left', fx: ['glow']},
+  {n: 5, sec: 8, move: 'right', fx: ['motes']},
   {n: 6, sec: 7, move: 'in', split: 'f06b'}, // split-screen: Yair's university | Sharone's OT studies
-  {n: 7, sec: 8, move: 'in'},
+  {n: 7, sec: 8, move: 'in', fx: ['rain']},
   {n: 8, sec: 8, move: 'in'},
   {n: 9, sec: 7, caption: '2020', move: 'right'},
   {n: 10, sec: 10, caption: 'Finally', move: 'in'},
   {n: 11, sec: 9, move: 'left'},
-  {n: 12, sec: 10, caption: 'July 2021', move: 'in'},
-  {n: 13, sec: 9, move: 'up'},
+  {n: 12, sec: 10, caption: 'July 2021', move: 'in', fx: ['glow']},
+  {n: 13, sec: 9, move: 'up', fx: ['petals']},
   {n: 14, sec: 10, move: 'out'},
   {n: 15, sec: 8, move: 'right'},
-  {n: 16, sec: 9, move: 'in'},
-  {n: 17, sec: 8, move: 'up'},
+  {n: 16, sec: 9, move: 'in', fx: ['motes']},
+  {n: 17, sec: 8, move: 'up', fx: ['birds', 'motes']},
 ];
 const TITLE_SEC = 7;
 
@@ -66,12 +67,24 @@ const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
             </div>
           ))}
         </div>
+      ) : b.clip ? (
+        <OffthreadVideo
+          src={staticFile(`clips/${b.clip}`)}
+          muted
+          playbackRate={Math.min(1, (b.clipSec ?? 8) / (dur / FPS))}
+          style={{width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(1.04)'}}
+        />
       ) : (
         <Img
           src={staticFile(`frames/f${String(b.n).padStart(2, '0')}.jpg`)}
           style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${scale}) translate(${x}%, ${y}%)`}}
         />
       )}
+      {!b.clip && b.fx?.includes('rain') && <Rain />}
+      {!b.clip && b.fx?.includes('petals') && <Petals />}
+      {!b.clip && b.fx?.includes('birds') && <Birds />}
+      {!b.clip && b.fx?.includes('motes') && <Motes />}
+      {!b.clip && b.fx?.includes('glow') && <Glow />}
       {b.caption && (
         <div style={{position: 'absolute', left: 110, bottom: 96, opacity: capO, color: '#fff8ee', fontFamily: 'Inter, sans-serif', textShadow: '0 2px 22px rgba(0,0,0,0.55)'}}>
           <div style={{fontSize: 50, fontWeight: 600, letterSpacing: 1}}>{b.caption}</div>
