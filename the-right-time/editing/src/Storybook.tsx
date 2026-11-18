@@ -20,7 +20,7 @@ export const BEATS: Beat[] = [
   {n: 7, sec: 8, move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
   {n: 8, sec: 8, move: 'in'},
   {n: 9, sec: 7, caption: '2020', move: 'right'},
-  {n: 10, sec: 10, caption: 'Finally', move: 'in'},
+  {n: 10, sec: 10, caption: 'Finally', move: 'in', clip: 'c10.mp4', clipSec: 5.0},
   {n: 11, sec: 9, move: 'left'},
   {n: 12, sec: 10, caption: 'July 2021', move: 'in', fx: ['glow']},
   {n: 13, sec: 9, move: 'up', fx: ['petals'], clip: 'c13.mp4', clipSec: 5.0},
