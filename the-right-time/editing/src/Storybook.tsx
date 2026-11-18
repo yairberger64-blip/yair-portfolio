@@ -14,7 +14,7 @@ export const BEATS: Beat[] = [
   {n: 1, sec: 8, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['birds', 'motes']},
   {n: 2, sec: 9, move: 'right'},
   {n: 3, sec: 8, move: 'in'},
-  {n: 4, sec: 10, move: 'left', fx: ['glow']},
+  {n: 4, sec: 10, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
   {n: 5, sec: 8, move: 'right', fx: ['motes']},
   {n: 6, sec: 7, move: 'in', split: 'f06b'}, // split-screen: Yair's university | Sharone's OT studies
   {n: 7, sec: 8, move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
@@ -68,12 +68,20 @@ const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
           ))}
         </div>
       ) : b.clip ? (
-        <OffthreadVideo
-          src={staticFile(`clips/${b.clip}`)}
-          muted
-          playbackRate={Math.min(1, (b.clipSec ?? 8) / (dur / FPS))}
-          style={{width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(1.04)'}}
-        />
+        (() => {
+          const rate = Math.min(1, Math.max(0.7, (b.clipSec ?? 8) / (dur / FPS)));
+          const playFrames = Math.floor(((b.clipSec ?? 8) / rate) * FPS) - 1;
+          const holdT = interpolate(f, [playFrames, dur], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          const style = {width: '100%', height: '100%', objectFit: 'cover' as const, transform: `scale(${1.04 + 0.03 * holdT})`};
+          return (
+            <>
+              <Sequence durationInFrames={playFrames} layout="none">
+                <OffthreadVideo src={staticFile(`clips/${b.clip}`)} muted playbackRate={rate} style={style} />
+              </Sequence>
+              {f >= playFrames && <Img src={staticFile(`clips/${b.clip!.replace('.mp4', '_last.jpg')}`)} style={style} />}
+            </>
+          );
+        })()
       ) : (
         <Img
           src={staticFile(`frames/f${String(b.n).padStart(2, '0')}.jpg`)}
