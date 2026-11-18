@@ -13,12 +13,12 @@ type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' 
 export const BEATS: Beat[] = [
   {n: 1, sec: 8, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['birds', 'motes']},
   {n: 2, sec: 9, move: 'right', clip: 'c02.mp4', clipSec: 5.0},
-  {n: 3, sec: 8, move: 'in'},
+  {n: 3, sec: 8, move: 'in', clip: 'c03.mp4', clipSec: 5.0},
   {n: 4, sec: 10, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
   {n: 5, sec: 8, move: 'right', fx: ['motes']},
   {n: 6, sec: 7, move: 'in', split: 'f06b'}, // split-screen: Yair's university | Sharone's OT studies
   {n: 7, sec: 8, move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
-  {n: 8, sec: 8, move: 'in'},
+  {n: 8, sec: 8, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
   {n: 9, sec: 7, caption: '2020', move: 'right'},
   {n: 10, sec: 10, caption: 'Finally', move: 'in', clip: 'c10.mp4', clipSec: 5.0},
   {n: 11, sec: 9, move: 'left'},
