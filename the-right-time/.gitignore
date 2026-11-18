@@ -7,3 +7,9 @@ renders/.render_*.log
 editing/public/frames/
 renders/the_right_time_*.mp4
 editing/public/clips/
+reviews/clips/
+reviews/stills/sb/
+reviews/stills/sb_sheet.jpg
+reviews/stills/clip7.png
+reviews/stills/fx_*
+renders/.sb*.log
