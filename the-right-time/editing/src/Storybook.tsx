@@ -15,7 +15,7 @@ export const BEATS: Beat[] = [
   {n: 1, sec: 5.4, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['motes'], clip: 'c01.mp4', clipSec: 5.0},
   {n: 2, sec: 5.4, move: 'right', clip: 'c02.mp4', clipSec: 3.6},
   {n: 4, sec: 5.4, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
-  {n: 5, sec: 5.4, caption: 'New York', sub: '2018', caption2: 'Colorado', sub2: '2018', move: 'in', split: 'f05b', clip: 'c05.mp4', clipSec: 2.2, clip2: 'c05b.mp4', clip2Sec: 4.06, pos2: '70% 50%'},
+  {n: 5, sec: 5.4, caption: 'New York', sub: '2018', caption2: 'Colorado', sub2: '2018', move: 'in', split: 'f05b', clip: 'c05.mp4', clipSec: 2.2, clip2: 'c05b.mp4', clip2Sec: 2.75, pos2: '70% 50%'},
   {n: 6, sec: 5.4, caption: '2019', move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4', clip2Sec: 5.0},
   {n: 7, sec: 5.6, caption: '2020', move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
   {n: 8, sec: 5.4, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
@@ -30,7 +30,7 @@ export const BEATS: Beat[] = [
 ];
 
 // Cut points (seconds) on the beat grid of the licensed piano track (69.8 bpm), last = start of the airport/title outro.
-const CUTS = [0.0, 5.642, 10.797, 15.929, 21.084, 26.192, 31.347, 36.502, 41.657, 46.788, 50.225, 57.075, 62.229, 67.361, 72.516];
+const CUTS = [0.0, 5.642, 10.797, 17.647, 21.084, 26.192, 31.347, 36.502, 41.657, 46.788, 50.225, 57.075, 62.229, 67.361, 72.516];
 const AIRPORT_SEC = 5.15;
 const MUSIC_SEC = 87.478;
 const HX = XF / 2;
