@@ -15,7 +15,7 @@ export const BEATS: Beat[] = [
   {n: 2, sec: 9, move: 'right', clip: 'c02.mp4', clipSec: 5.0},
   {n: 3, sec: 8, move: 'in', clip: 'c03.mp4', clipSec: 5.0},
   {n: 4, sec: 10, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
-  {n: 5, sec: 8, move: 'right', fx: ['motes']},
+  {n: 5, sec: 8, move: 'right', fx: ['motes'], clip: 'c05.mp4', clipSec: 2.2},
   {n: 6, sec: 7, move: 'in', split: 'f06b'}, // split-screen: Yair's university | Sharone's OT studies
   {n: 7, sec: 8, move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
   {n: 8, sec: 8, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
