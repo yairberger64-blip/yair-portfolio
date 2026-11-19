@@ -13,7 +13,7 @@ type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' 
 // v003 edit: each shot lasts about as long as its clip (no long freezes); wandering-eyes shot removed.
 export const BEATS: Beat[] = [
   {n: 1, sec: 5.4, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['motes'], clip: 'c01.mp4', clipSec: 5.0},
-  {n: 2, sec: 5.4, move: 'right', clip: 'c02.mp4', clipSec: 5.0},
+  {n: 2, sec: 5.4, move: 'right', clip: 'c02.mp4', clipSec: 3.6},
   {n: 4, sec: 5.4, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
   {n: 5, sec: 3.2, caption: 'New York', sub: '2019', move: 'right', fx: ['motes'], clip: 'c05.mp4', clipSec: 2.2},
   {n: 6, sec: 5.4, move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4'},
