@@ -9,16 +9,14 @@ import {Birds, Glow, Motes, Petals, Rain} from './fx';
 const FPS = 24;
 const XF = 10; // short dissolve between shots
 
-type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string; fx?: ('rain' | 'petals' | 'birds' | 'motes' | 'glow')[]; clip?: string; clipSec?: number; clip2?: string; pos2?: string};
+type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string; fx?: ('rain' | 'petals' | 'birds' | 'motes' | 'glow')[]; clip?: string; clipSec?: number; clip2?: string; pos2?: string; caption2?: string; sub2?: string; clip2Sec?: number};
 // v003 edit: each shot lasts about as long as its clip (no long freezes); wandering-eyes shot removed.
 export const BEATS: Beat[] = [
   {n: 1, sec: 5.4, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['motes'], clip: 'c01.mp4', clipSec: 5.0},
   {n: 2, sec: 5.4, move: 'right', clip: 'c02.mp4', clipSec: 3.6},
   {n: 4, sec: 5.4, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
-  {n: 41, sec: 3, caption: '2018', move: 'in'},
-  {n: 42, sec: 3, move: 'in'},
-  {n: 5, sec: 5.4, caption: 'New York · Colorado', move: 'in', split: 'f05b', clip: 'c05.mp4', clipSec: 2.2, clip2: 'c05b.mp4', pos2: '70% 50%'},
-  {n: 6, sec: 5.4, caption: '2019', move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4'},
+  {n: 5, sec: 5.4, caption: 'New York', sub: '2018', caption2: 'Colorado', sub2: '2018', move: 'in', split: 'f05b', clip: 'c05.mp4', clipSec: 2.2, clip2: 'c05b.mp4', clip2Sec: 4.06, pos2: '70% 50%'},
+  {n: 6, sec: 5.4, caption: '2019', move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4', clip2Sec: 5.0},
   {n: 7, sec: 5.6, caption: '2020', move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
   {n: 8, sec: 5.4, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
   {n: 9, sec: 5.4, caption: 'November 2020', move: 'right', clip: 'c09.mp4', clipSec: 5.0},
@@ -32,9 +30,9 @@ export const BEATS: Beat[] = [
 ];
 
 // Cut points (seconds) on the beat grid of the licensed piano track (69.8 bpm), last = start of the airport/title outro.
-const CUTS = [0.0, 5.642, 10.797, 15.929, 18.506, 21.084, 26.192, 31.347, 36.502, 41.657, 46.788, 51.92, 55.38, 62.229, 67.361, 72.516, 77.648];
+const CUTS = [0.0, 5.642, 10.797, 15.929, 21.084, 26.192, 31.347, 36.502, 41.657, 46.788, 50.225, 57.075, 62.229, 67.361, 72.516];
 const AIRPORT_SEC = 5.15;
-const MUSIC_SEC = 94.305;
+const MUSIC_SEC = 87.478;
 const HX = XF / 2;
 export const starts = (() => {
   const s = CUTS.map((c, i) => Math.max(0, Math.round(c * FPS) - (i ? HX : 0)));
@@ -68,8 +66,9 @@ const Still: React.FC<{b: Beat; dur: number; last?: boolean}> = ({b, dur, last})
               {(k === 0 ? b.clip : b.clip2) ? (
                 (() => {
                   const file = (k === 0 ? b.clip : b.clip2)!;
-                  const rate = Math.min(1, Math.max(last ? 0.62 : 0.55, (b.clipSec ?? 8) / (dur / FPS)));
-                  const playFrames = Math.floor(((b.clipSec ?? 8) / rate) * FPS) - 1;
+                  const sideSec = k === 0 ? (b.clipSec ?? 5) : (b.clip2Sec ?? 5);
+                  const rate = Math.min(1, (sideSec - 0.1) / (dur / FPS));
+                  const playFrames = Math.floor(((sideSec - 0.1) / rate) * FPS) + 2;
                   const st = {width: '100%', height: '100%', objectFit: 'cover' as const, objectPosition: k === 1 && b.pos2 ? b.pos2 : '50% 50%'};
                   return f < playFrames ? (
                     <OffthreadVideo src={staticFile(`clips/${file}`)} muted playbackRate={rate} style={st} />
@@ -112,12 +111,12 @@ const Still: React.FC<{b: Beat; dur: number; last?: boolean}> = ({b, dur, last})
       {!b.clip && b.fx?.includes('birds') && <Birds />}
       {!b.clip && b.fx?.includes('motes') && <Motes />}
       {!b.clip && b.fx?.includes('glow') && <Glow />}
-      {b.caption && (
-        <div style={{position: 'absolute', left: 110, bottom: 96, opacity: capO, color: '#fff8ee', fontFamily: 'Inter, sans-serif', textShadow: '0 2px 22px rgba(0,0,0,0.55)'}}>
-          <div style={{fontSize: 50, fontWeight: 600, letterSpacing: 1}}>{b.caption}</div>
-          {b.sub && <div style={{fontSize: 26, letterSpacing: 5, textTransform: 'uppercase', opacity: 0.85, marginTop: 6}}>{b.sub}</div>}
+      {[b.caption && {t: b.caption, s: b.sub, left: 110}, b.caption2 && {t: b.caption2, s: b.sub2, left: 960 + 70}].filter(Boolean).map((c) => (
+        <div key={(c as {t: string}).t} style={{position: 'absolute', left: (c as {left: number}).left, bottom: 96, opacity: capO, color: '#fff8ee', fontFamily: 'Inter, sans-serif', textShadow: '0 2px 22px rgba(0,0,0,0.55)'}}>
+          <div style={{fontSize: 50, fontWeight: 600, letterSpacing: 1}}>{(c as {t: string}).t}</div>
+          {(c as {s?: string}).s && <div style={{fontSize: 26, letterSpacing: 5, textTransform: 'uppercase', opacity: 0.85, marginTop: 6}}>{(c as {s?: string}).s}</div>}
         </div>
-      )}
+      ))}
     </AbsoluteFill>
   );
 };
@@ -142,7 +141,7 @@ export const Storybook: React.FC<{withAudio?: boolean}> = ({withAudio = true}) =
         <div style={{opacity: titleO, color: '#fff8ee', fontFamily: 'Inter, sans-serif', fontSize: 104, fontWeight: 300, letterSpacing: 22, textShadow: '0 4px 30px rgba(0,0,0,0.5)'}}>THE RIGHT TIME</div>
       </AbsoluteFill>
       <AbsoluteFill style={{background: '#000', opacity: fadeIn}} />
-      {withAudio && <Audio src={staticFile('audio/storybook_mix_v003.wav')} />}
+      {withAudio && <Audio src={staticFile('audio/storybook_mix_v002.wav')} />}
     </AbsoluteFill>
   );
 };
