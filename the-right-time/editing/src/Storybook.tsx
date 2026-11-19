@@ -9,13 +9,13 @@ import {Birds, Glow, Motes, Petals, Rain} from './fx';
 const FPS = 24;
 const XF = 10; // short dissolve between shots
 
-type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string; fx?: ('rain' | 'petals' | 'birds' | 'motes' | 'glow')[]; clip?: string; clipSec?: number; clip2?: string};
+type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string; fx?: ('rain' | 'petals' | 'birds' | 'motes' | 'glow')[]; clip?: string; clipSec?: number; clip2?: string; pos2?: string};
 // v003 edit: each shot lasts about as long as its clip (no long freezes); wandering-eyes shot removed.
 export const BEATS: Beat[] = [
   {n: 1, sec: 5.4, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['motes'], clip: 'c01.mp4', clipSec: 5.0},
   {n: 2, sec: 5.4, move: 'right', clip: 'c02.mp4', clipSec: 3.6},
   {n: 4, sec: 5.4, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
-  {n: 5, sec: 3.2, caption: 'New York', sub: '2018', move: 'right', fx: ['motes'], clip: 'c05.mp4', clipSec: 2.2},
+  {n: 5, sec: 5.4, caption: 'New York · Colorado', sub: '2018', move: 'in', split: 'f05b', clip: 'c05.mp4', clipSec: 2.2, clip2: 'c05b.mp4', pos2: '70% 50%'},
   {n: 6, sec: 5.4, caption: '2019', move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4'},
   {n: 7, sec: 5.6, caption: '2020', move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
   {n: 8, sec: 5.4, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
@@ -30,7 +30,7 @@ export const BEATS: Beat[] = [
 ];
 
 // Cut points (seconds) on the beat grid of the licensed piano track (69.8 bpm), last = start of the airport/title outro.
-const CUTS = [0.0, 7.361, 12.492, 17.647, 21.084, 26.192, 31.347, 36.502, 41.657, 46.788, 50.225, 57.075, 62.229, 67.361, 72.516];
+const CUTS = [0.0, 5.642, 10.797, 15.929, 21.084, 26.192, 31.347, 36.502, 41.657, 46.788, 50.225, 57.075, 62.229, 67.361, 72.516];
 const AIRPORT_SEC = 5.15;
 const MUSIC_SEC = 87.478;
 const HX = XF / 2;
@@ -68,7 +68,7 @@ const Still: React.FC<{b: Beat; dur: number; last?: boolean}> = ({b, dur, last})
                   const file = (k === 0 ? b.clip : b.clip2)!;
                   const rate = Math.min(1, Math.max(last ? 0.62 : 0.55, (b.clipSec ?? 8) / (dur / FPS)));
                   const playFrames = Math.floor(((b.clipSec ?? 8) / rate) * FPS) - 1;
-                  const st = {width: '100%', height: '100%', objectFit: 'cover' as const};
+                  const st = {width: '100%', height: '100%', objectFit: 'cover' as const, objectPosition: k === 1 && b.pos2 ? b.pos2 : '50% 50%'};
                   return f < playFrames ? (
                     <OffthreadVideo src={staticFile(`clips/${file}`)} muted playbackRate={rate} style={st} />
                   ) : (
