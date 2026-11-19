@@ -42,10 +42,12 @@ export const starts = (() => {
 const TITLE_SEC = MUSIC_SEC - CUTS[CUTS.length - 1] - AIRPORT_SEC;
 export const STORYBOOK_FRAMES = Math.round(MUSIC_SEC * FPS);
 
-const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
+const Still: React.FC<{b: Beat; dur: number; last?: boolean}> = ({b, dur, last}) => {
   const f = useCurrentFrame();
   const t = interpolate(f, [0, dur], [0, 1], {easing: Easing.inOut(Easing.sin)});
-  const op = interpolate(f, [0, XF, dur - XF, dur], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const op = last
+    ? interpolate(f, [0, XF, dur - XF, dur], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})
+    : interpolate(f, [0, XF], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   let scale = 1.06 + 0.08 * t;
   let x = 0;
   let y = 0;
@@ -63,7 +65,7 @@ const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
               {(k === 0 ? b.clip : b.clip2) ? (
                 (() => {
                   const file = (k === 0 ? b.clip : b.clip2)!;
-                  const rate = Math.min(1, Math.max(0.8, (b.clipSec ?? 8) / (dur / FPS)));
+                  const rate = Math.min(1, Math.max(last ? 0.62 : 0.55, (b.clipSec ?? 8) / (dur / FPS)));
                   const playFrames = Math.floor(((b.clipSec ?? 8) / rate) * FPS) - 1;
                   const st = {width: '100%', height: '100%', objectFit: 'cover' as const};
                   return f < playFrames ? (
@@ -83,7 +85,7 @@ const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
         </div>
       ) : b.clip ? (
         (() => {
-          const rate = Math.min(1, Math.max(0.8, (b.clipSec ?? 8) / (dur / FPS)));
+          const rate = Math.min(1, Math.max(last ? 0.62 : 0.55, (b.clipSec ?? 8) / (dur / FPS)));
           const playFrames = Math.floor(((b.clipSec ?? 8) / rate) * FPS) - 1;
           const holdT = interpolate(f, [playFrames, dur], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
           const style = {width: '100%', height: '100%', objectFit: 'cover' as const, transform: `scale(${1.04 + 0.03 * holdT})`};
@@ -128,7 +130,7 @@ export const Storybook: React.FC<{withAudio?: boolean}> = ({withAudio = true}) =
         const dur = starts.durs[i];
         return (
           <Sequence key={b.n} from={starts.s[i]} durationInFrames={i === BEATS.length - 1 ? STORYBOOK_FRAMES - starts.s[i] : dur}>
-            <Still b={b} dur={i === BEATS.length - 1 ? STORYBOOK_FRAMES - starts.s[i] : dur} />
+            <Still b={b} last={i === BEATS.length - 1} dur={i === BEATS.length - 1 ? STORYBOOK_FRAMES - starts.s[i] : dur} />
           </Sequence>
         );
       })}
