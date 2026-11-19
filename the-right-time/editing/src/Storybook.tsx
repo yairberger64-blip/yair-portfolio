@@ -15,18 +15,18 @@ export const BEATS: Beat[] = [
   {n: 1, sec: 5.4, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['motes'], clip: 'c01.mp4', clipSec: 5.0},
   {n: 2, sec: 5.4, move: 'right', clip: 'c02.mp4', clipSec: 3.6},
   {n: 4, sec: 5.4, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
-  {n: 5, sec: 3.2, caption: 'New York', sub: '2019', move: 'right', fx: ['motes'], clip: 'c05.mp4', clipSec: 2.2},
-  {n: 6, sec: 5.4, move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4'},
-  {n: 7, sec: 5.6, move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
+  {n: 5, sec: 3.2, caption: 'New York', sub: '2018', move: 'right', fx: ['motes'], clip: 'c05.mp4', clipSec: 2.2},
+  {n: 6, sec: 5.4, caption: '2019', move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4'},
+  {n: 7, sec: 5.6, caption: '2020', move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
   {n: 8, sec: 5.4, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
-  {n: 9, sec: 5.4, caption: '2020', move: 'right', clip: 'c09.mp4', clipSec: 5.0},
+  {n: 9, sec: 5.4, caption: 'November 2020', move: 'right', clip: 'c09.mp4', clipSec: 5.0},
   {n: 10, sec: 5.6, caption: 'Finally', move: 'in', clip: 'c10.mp4', clipSec: 5.0},
   {n: 11, sec: 4.0, move: 'left', clip: 'c11.mp4', clipSec: 3.6},
   {n: 12, sec: 6.5, caption: 'July 2021', move: 'in', fx: ['glow'], clip: 'c12.mp4', clipSec: 5.0},
-  {n: 13, sec: 5.4, move: 'up', fx: ['petals'], clip: 'c13.mp4', clipSec: 5.0},
-  {n: 14, sec: 5.6, move: 'out', clip: 'c14.mp4', clipSec: 5.0},
+  {n: 13, sec: 5.4, caption: '2023', move: 'up', fx: ['petals'], clip: 'c13.mp4', clipSec: 5.0},
+  {n: 14, sec: 5.6, caption: '2026', move: 'out', clip: 'c14.mp4', clipSec: 5.0},
   {n: 15, sec: 5.4, move: 'right', clip: 'c15.mp4', clipSec: 5.0},
-  {n: 16, sec: 5.4, move: 'in', fx: ['motes'], clip: 'c16.mp4', clipSec: 5.0},
+  {n: 16, sec: 5.4, caption: '2027', move: 'in', fx: ['motes'], clip: 'c16.mp4', clipSec: 5.0},
 ];
 
 // Cut points (seconds) on the beat grid of the licensed piano track (69.8 bpm), last = start of the airport/title outro.
@@ -55,7 +55,8 @@ const Still: React.FC<{b: Beat; dur: number; last?: boolean}> = ({b, dur, last})
   if (b.move === 'left') x = 2.5 - 5 * t;
   if (b.move === 'right') x = -2.5 + 5 * t;
   if (b.move === 'up') y = 2 - 4 * t;
-  const capO = interpolate(f, [8, 20, dur - 28, dur - 14], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const capEnd = Math.min(dur, 100);
+  const capO = interpolate(f, [8, 20, capEnd - 28, capEnd - 14], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
     <AbsoluteFill style={{opacity: b.n === 1 ? Math.max(op, f > XF ? 1 : op) : op}}>
       {b.split ? (

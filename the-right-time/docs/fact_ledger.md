@@ -47,3 +47,15 @@ Every scene must be traceable to this ledger. If a shot depicts something in the
 | O6 | Katelyn's consent to appear, plus reference photos (Yair, Sharone and Mia photos received 2026-11-16) | All chapters |
 | O7 | Any objects/places with personal meaning that could recur as motifs | Visual language |
 | O8 | Ch.3: how much to show of the difficult relationships (both of you should approve) | Ch.3 |
+
+## Dates confirmed by Yair (2026-11-19), used as on-screen captions
+| Scene | Caption |
+|---|---|
+| America (New York) | 2018 |
+| University (both) | 2019 |
+| The hard years | 2020 |
+| Katelyn returns | November 2020 |
+| Bench ("I love you") | July 2021 |
+| Wedding | 2023 |
+| Mia | 2026 |
+| Airport (planned move) | 2027 |
