@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 THE RIGHT TIME — storybook cut score (2:17), original composition.
-Cue points (s) match editing/src/Storybook.tsx frame starts:
+Cue points (s) [v002: takeoff removed, title over airport at 122, ends 132] match editing/src/Storybook.tsx frame starts:
   f1 0 · f2 7 · f3 15 · f4 22 · f5 31 · f6 38 · f7 44 · f8 51 · f9 58 · f10 64 · f11 73
   f12 81 · f13 90 · f14 98 · f15 107 · f16 114 · f17 122 · title 129–137
 Themes: "Matchmaker" (Katelyn) G-C-E-G / E-D-C-A-G, and the love theme = the same motif slowed.
@@ -203,14 +203,14 @@ for k in range(22):
     sc = [0, 2, 4, 5, 7, 9, 11]
     note('harp', 121.8 + k * 0.045, 1.5, 55 + 12 * (k // 7) + sc[k % 7], 52 + k)
 
-# ---- H. 129–137 title: final chord + the matchmaker motif one last time on celesta
-chord('strings', 129.0, 7.5, ['G3', 'B3', 'D4', 'G4'], 70)
-chord('horn', 129.0, 7.0, ['G2', 'D3'], 50)
-chord('piano', 129.0, 7.0, ['G2', 'D3', 'B3', 'G4'], 58)
-seq('celesta', 130.0, 0.5, [('G5', .5), ('C6', .5), ('E6', .5), ('G6', 2)], 52)
-ramp('strings', 133.0, 137.0, 105, 0)
-ramp('piano', 133.0, 137.0, 110, 0)
-ramp('horn', 133.0, 137.0, 110, 0)
+# ---- H. 126–132 title over the airport: final chord + the matchmaker motif one last time on celesta
+chord('strings', 126.0, 6.0, ['G3', 'B3', 'D4', 'G4'], 70)
+chord('horn', 126.0, 5.5, ['G2', 'D3'], 50)
+chord('piano', 126.0, 5.5, ['G2', 'D3', 'B3', 'G4'], 58)
+seq('celesta', 126.8, 0.5, [('G5', .5), ('C6', .5), ('E6', .5), ('G6', 2)], 52)
+ramp('strings', 128.5, 132.0, 105, 0)
+ramp('piano', 128.5, 132.0, 110, 0)
+ramp('horn', 128.5, 132.0, 110, 0)
 
 EV.sort(key=lambda e: (e[0], e[1]))
 mid = mido.MidiFile(ticks_per_beat=480)

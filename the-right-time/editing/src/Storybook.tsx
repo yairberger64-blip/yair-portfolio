@@ -9,14 +9,14 @@ import {Birds, Glow, Motes, Petals, Rain} from './fx';
 const FPS = 24;
 const XF = 24; // 1 s crossfade
 
-type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string; fx?: ('rain' | 'petals' | 'birds' | 'motes' | 'glow')[]; clip?: string; clipSec?: number};
+type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string; fx?: ('rain' | 'petals' | 'birds' | 'motes' | 'glow')[]; clip?: string; clipSec?: number; clip2?: string};
 export const BEATS: Beat[] = [
-  {n: 1, sec: 8, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['birds', 'motes']},
+  {n: 1, sec: 8, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['motes'], clip: 'c01.mp4', clipSec: 5.0},
   {n: 2, sec: 9, move: 'right', clip: 'c02.mp4', clipSec: 5.0},
   {n: 3, sec: 8, move: 'in', clip: 'c03.mp4', clipSec: 5.0},
   {n: 4, sec: 10, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
   {n: 5, sec: 8, move: 'right', fx: ['motes'], clip: 'c05.mp4', clipSec: 2.2},
-  {n: 6, sec: 7, move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0}, // split-screen: Yair's university | Sharone's OT studies
+  {n: 6, sec: 7, move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4'}, // split-screen: Yair's university | Sharone's OT studies
   {n: 7, sec: 8, move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
   {n: 8, sec: 8, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
   {n: 9, sec: 7, caption: '2020', move: 'right', clip: 'c09.mp4', clipSec: 5.0},
@@ -27,9 +27,8 @@ export const BEATS: Beat[] = [
   {n: 14, sec: 10, move: 'out', clip: 'c14.mp4', clipSec: 5.0},
   {n: 15, sec: 8, move: 'right', clip: 'c15.mp4', clipSec: 5.0},
   {n: 16, sec: 9, move: 'in', fx: ['motes'], clip: 'c16.mp4', clipSec: 5.0},
-  {n: 17, sec: 8, move: 'up', fx: ['birds', 'motes']},
 ];
-const TITLE_SEC = 7;
+const TITLE_SEC = 9;
 
 export const starts = (() => {
   const s: number[] = [];
@@ -60,15 +59,16 @@ const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
         <div style={{display: 'flex', width: '100%', height: '100%', gap: 6, background: '#111'}}>
           {[`f${String(b.n).padStart(2, '0')}`, b.split].map((name, k) => (
             <div key={name} style={{flex: 1, overflow: 'hidden'}}>
-              {k === 0 && b.clip ? (
+              {(k === 0 ? b.clip : b.clip2) ? (
                 (() => {
+                  const file = (k === 0 ? b.clip : b.clip2)!;
                   const rate = Math.min(1, Math.max(0.7, (b.clipSec ?? 8) / (dur / FPS)));
                   const playFrames = Math.floor(((b.clipSec ?? 8) / rate) * FPS) - 1;
                   const st = {width: '100%', height: '100%', objectFit: 'cover' as const};
                   return f < playFrames ? (
-                    <OffthreadVideo src={staticFile(`clips/${b.clip}`)} muted playbackRate={rate} style={st} />
+                    <OffthreadVideo src={staticFile(`clips/${file}`)} muted playbackRate={rate} style={st} />
                   ) : (
-                    <Img src={staticFile(`clips/${b.clip!.replace('.mp4', '_last.jpg')}`)} style={st} />
+                    <Img src={staticFile(`clips/${file.replace('.mp4', '_last.jpg')}`)} style={st} />
                   );
                 })()
               ) : (
