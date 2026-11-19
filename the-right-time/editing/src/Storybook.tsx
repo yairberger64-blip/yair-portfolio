@@ -15,7 +15,9 @@ export const BEATS: Beat[] = [
   {n: 1, sec: 5.4, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['motes'], clip: 'c01.mp4', clipSec: 5.0},
   {n: 2, sec: 5.4, move: 'right', clip: 'c02.mp4', clipSec: 3.6},
   {n: 4, sec: 5.4, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
-  {n: 5, sec: 5.4, caption: 'New York · Colorado', sub: '2018', move: 'in', split: 'f05b', clip: 'c05.mp4', clipSec: 2.2, clip2: 'c05b.mp4', pos2: '70% 50%'},
+  {n: 41, sec: 3, caption: '2018', move: 'in'},
+  {n: 42, sec: 3, move: 'in'},
+  {n: 5, sec: 5.4, caption: 'New York · Colorado', move: 'in', split: 'f05b', clip: 'c05.mp4', clipSec: 2.2, clip2: 'c05b.mp4', pos2: '70% 50%'},
   {n: 6, sec: 5.4, caption: '2019', move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4'},
   {n: 7, sec: 5.6, caption: '2020', move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
   {n: 8, sec: 5.4, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
@@ -30,9 +32,9 @@ export const BEATS: Beat[] = [
 ];
 
 // Cut points (seconds) on the beat grid of the licensed piano track (69.8 bpm), last = start of the airport/title outro.
-const CUTS = [0.0, 5.642, 10.797, 15.929, 21.084, 26.192, 31.347, 36.502, 41.657, 46.788, 50.225, 57.075, 62.229, 67.361, 72.516];
+const CUTS = [0.0, 5.642, 10.797, 15.929, 18.506, 21.084, 26.192, 31.347, 36.502, 41.657, 46.788, 51.92, 55.38, 62.229, 67.361, 72.516, 77.648];
 const AIRPORT_SEC = 5.15;
-const MUSIC_SEC = 87.478;
+const MUSIC_SEC = 94.305;
 const HX = XF / 2;
 export const starts = (() => {
   const s = CUTS.map((c, i) => Math.max(0, Math.round(c * FPS) - (i ? HX : 0)));
@@ -140,7 +142,7 @@ export const Storybook: React.FC<{withAudio?: boolean}> = ({withAudio = true}) =
         <div style={{opacity: titleO, color: '#fff8ee', fontFamily: 'Inter, sans-serif', fontSize: 104, fontWeight: 300, letterSpacing: 22, textShadow: '0 4px 30px rgba(0,0,0,0.5)'}}>THE RIGHT TIME</div>
       </AbsoluteFill>
       <AbsoluteFill style={{background: '#000', opacity: fadeIn}} />
-      {withAudio && <Audio src={staticFile('audio/storybook_mix_v002.wav')} />}
+      {withAudio && <Audio src={staticFile('audio/storybook_mix_v003.wav')} />}
     </AbsoluteFill>
   );
 };
