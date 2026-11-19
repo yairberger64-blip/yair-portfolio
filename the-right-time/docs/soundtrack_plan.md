@@ -16,3 +16,7 @@ Cue map: see `shot_list.md`. Files:
 
 ## Quality upgrade path
 GM-soundfont orchestration is fine for previs, but final picture deserves better. The MIDI files drop straight into a DAW with orchestral libraries, or a composer can use them as a mock-up. The cue timing is already locked to picture.
+
+## Storybook cut v3 (current)
+Music: "Piano Cinematic" by AtlasAudio, Pixabay (track id 636514), chosen by Yair. Used under the Pixabay Content License (free use, no attribution required; do not redistribute the audio file on its own). The file and the edited mix are kept out of git.
+Edit: original 0:00–1:12.5 then a beat-matched jump (bar-aligned, chroma-matched) into the outro at 1:53.6, 0.12 s crossfade, 3 s tail fade. 69.8 bpm; every picture cut sits on a beat.

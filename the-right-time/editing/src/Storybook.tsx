@@ -28,18 +28,19 @@ export const BEATS: Beat[] = [
   {n: 15, sec: 5.4, move: 'right', clip: 'c15.mp4', clipSec: 5.0},
   {n: 16, sec: 5.4, move: 'in', fx: ['motes'], clip: 'c16.mp4', clipSec: 5.0},
 ];
-const TITLE_SEC = 6;
 
+// Cut points (seconds) on the beat grid of the licensed piano track (69.8 bpm), last = start of the airport/title outro.
+const CUTS = [0.0, 7.361, 12.492, 17.647, 21.084, 26.192, 31.347, 36.502, 41.657, 46.788, 50.225, 57.075, 62.229, 67.361, 72.516];
+const AIRPORT_SEC = 5.15;
+const MUSIC_SEC = 87.478;
+const HX = XF / 2;
 export const starts = (() => {
-  const s: number[] = [];
-  let t = 0;
-  for (const b of BEATS) {
-    s.push(t);
-    t += Math.round(b.sec * FPS) - XF;
-  }
-  return {s, end: t + XF};
+  const s = CUTS.map((c, i) => Math.max(0, Math.round(c * FPS) - (i ? HX : 0)));
+  const durs = CUTS.map((c, i) => (i < CUTS.length - 1 ? Math.round(CUTS[i + 1] * FPS) + HX - s[i] : Math.round((c + AIRPORT_SEC) * FPS) + HX - s[i]));
+  return {s, durs, end: Math.round((CUTS[CUTS.length - 1] + AIRPORT_SEC) * FPS) + HX};
 })();
-export const STORYBOOK_FRAMES = starts.end + TITLE_SEC * FPS;
+const TITLE_SEC = MUSIC_SEC - CUTS[CUTS.length - 1] - AIRPORT_SEC;
+export const STORYBOOK_FRAMES = Math.round(MUSIC_SEC * FPS);
 
 const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
   const f = useCurrentFrame();
@@ -52,7 +53,7 @@ const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
   if (b.move === 'left') x = 2.5 - 5 * t;
   if (b.move === 'right') x = -2.5 + 5 * t;
   if (b.move === 'up') y = 2 - 4 * t;
-  const capO = interpolate(f, [18, 36, dur - 40, dur - 22], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const capO = interpolate(f, [8, 20, dur - 28, dur - 14], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
     <AbsoluteFill style={{opacity: b.n === 1 ? Math.max(op, f > XF ? 1 : op) : op}}>
       {b.split ? (
@@ -124,10 +125,10 @@ export const Storybook: React.FC<{withAudio?: boolean}> = ({withAudio = true}) =
   return (
     <AbsoluteFill style={{background: '#000'}}>
       {BEATS.map((b, i) => {
-        const dur = Math.round(b.sec * FPS);
+        const dur = starts.durs[i];
         return (
-          <Sequence key={b.n} from={starts.s[i]} durationInFrames={i === BEATS.length - 1 ? dur + TITLE_SEC * FPS : dur}>
-            <Still b={b} dur={i === BEATS.length - 1 ? dur + TITLE_SEC * FPS : dur} />
+          <Sequence key={b.n} from={starts.s[i]} durationInFrames={i === BEATS.length - 1 ? STORYBOOK_FRAMES - starts.s[i] : dur}>
+            <Still b={b} dur={i === BEATS.length - 1 ? STORYBOOK_FRAMES - starts.s[i] : dur} />
           </Sequence>
         );
       })}
@@ -136,7 +137,7 @@ export const Storybook: React.FC<{withAudio?: boolean}> = ({withAudio = true}) =
         <div style={{opacity: titleO, color: '#fff8ee', fontFamily: 'Inter, sans-serif', fontSize: 104, fontWeight: 300, letterSpacing: 22, textShadow: '0 4px 30px rgba(0,0,0,0.5)'}}>THE RIGHT TIME</div>
       </AbsoluteFill>
       <AbsoluteFill style={{background: '#000', opacity: fadeIn}} />
-      {withAudio && <Audio src={staticFile('audio/storybook_mix_v001.wav')} />}
+      {withAudio && <Audio src={staticFile('audio/storybook_mix_v002.wav')} />}
     </AbsoluteFill>
   );
 };
