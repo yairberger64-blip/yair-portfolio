@@ -7,35 +7,35 @@ import {Birds, Glow, Motes, Petals, Rain} from './fx';
  * animated with slow camera moves and dissolves. Frames live in public/frames/fNN.jpg (local only).
  */
 const FPS = 24;
-const XF = 24; // 1 s crossfade
+const XF = 10; // short dissolve between shots
 
 type Beat = {n: number; sec: number; caption?: string; sub?: string; move: 'in' | 'out' | 'left' | 'right' | 'up'; split?: string; fx?: ('rain' | 'petals' | 'birds' | 'motes' | 'glow')[]; clip?: string; clipSec?: number; clip2?: string};
+// v003 edit: each shot lasts about as long as its clip (no long freezes); wandering-eyes shot removed.
 export const BEATS: Beat[] = [
-  {n: 1, sec: 8, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['motes'], clip: 'c01.mp4', clipSec: 5.0},
-  {n: 2, sec: 9, move: 'right', clip: 'c02.mp4', clipSec: 5.0},
-  {n: 3, sec: 8, move: 'in', clip: 'c03.mp4', clipSec: 5.0},
-  {n: 4, sec: 10, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
-  {n: 5, sec: 8, move: 'right', fx: ['motes'], clip: 'c05.mp4', clipSec: 2.2},
-  {n: 6, sec: 7, move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4'}, // split-screen: Yair's university | Sharone's OT studies
-  {n: 7, sec: 8, move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
-  {n: 8, sec: 8, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
-  {n: 9, sec: 7, caption: '2020', move: 'right', clip: 'c09.mp4', clipSec: 5.0},
-  {n: 10, sec: 10, caption: 'Finally', move: 'in', clip: 'c10.mp4', clipSec: 5.0},
-  {n: 11, sec: 9, move: 'left', clip: 'c11.mp4', clipSec: 3.6},
-  {n: 12, sec: 10, caption: 'July 2021', move: 'in', fx: ['glow'], clip: 'c12.mp4', clipSec: 5.0},
-  {n: 13, sec: 9, move: 'up', fx: ['petals'], clip: 'c13.mp4', clipSec: 5.0},
-  {n: 14, sec: 10, move: 'out', clip: 'c14.mp4', clipSec: 5.0},
-  {n: 15, sec: 8, move: 'right', clip: 'c15.mp4', clipSec: 5.0},
-  {n: 16, sec: 9, move: 'in', fx: ['motes'], clip: 'c16.mp4', clipSec: 5.0},
+  {n: 1, sec: 5.4, caption: 'Jerusalem', sub: '2017', move: 'in', fx: ['motes'], clip: 'c01.mp4', clipSec: 5.0},
+  {n: 2, sec: 5.4, move: 'right', clip: 'c02.mp4', clipSec: 5.0},
+  {n: 4, sec: 5.4, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
+  {n: 5, sec: 3.2, caption: 'New York', sub: '2019', move: 'right', fx: ['motes'], clip: 'c05.mp4', clipSec: 2.2},
+  {n: 6, sec: 5.4, move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0, clip2: 'c06b.mp4'},
+  {n: 7, sec: 5.6, move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
+  {n: 8, sec: 5.4, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
+  {n: 9, sec: 5.4, caption: '2020', move: 'right', clip: 'c09.mp4', clipSec: 5.0},
+  {n: 10, sec: 5.6, caption: 'Finally', move: 'in', clip: 'c10.mp4', clipSec: 5.0},
+  {n: 11, sec: 4.0, move: 'left', clip: 'c11.mp4', clipSec: 3.6},
+  {n: 12, sec: 6.5, caption: 'July 2021', move: 'in', fx: ['glow'], clip: 'c12.mp4', clipSec: 5.0},
+  {n: 13, sec: 5.4, move: 'up', fx: ['petals'], clip: 'c13.mp4', clipSec: 5.0},
+  {n: 14, sec: 5.6, move: 'out', clip: 'c14.mp4', clipSec: 5.0},
+  {n: 15, sec: 5.4, move: 'right', clip: 'c15.mp4', clipSec: 5.0},
+  {n: 16, sec: 5.4, move: 'in', fx: ['motes'], clip: 'c16.mp4', clipSec: 5.0},
 ];
-const TITLE_SEC = 9;
+const TITLE_SEC = 6;
 
 export const starts = (() => {
   const s: number[] = [];
   let t = 0;
   for (const b of BEATS) {
     s.push(t);
-    t += b.sec * FPS - XF;
+    t += Math.round(b.sec * FPS) - XF;
   }
   return {s, end: t + XF};
 })();
@@ -62,7 +62,7 @@ const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
               {(k === 0 ? b.clip : b.clip2) ? (
                 (() => {
                   const file = (k === 0 ? b.clip : b.clip2)!;
-                  const rate = Math.min(1, Math.max(0.7, (b.clipSec ?? 8) / (dur / FPS)));
+                  const rate = Math.min(1, Math.max(0.8, (b.clipSec ?? 8) / (dur / FPS)));
                   const playFrames = Math.floor(((b.clipSec ?? 8) / rate) * FPS) - 1;
                   const st = {width: '100%', height: '100%', objectFit: 'cover' as const};
                   return f < playFrames ? (
@@ -82,7 +82,7 @@ const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
         </div>
       ) : b.clip ? (
         (() => {
-          const rate = Math.min(1, Math.max(0.7, (b.clipSec ?? 8) / (dur / FPS)));
+          const rate = Math.min(1, Math.max(0.8, (b.clipSec ?? 8) / (dur / FPS)));
           const playFrames = Math.floor(((b.clipSec ?? 8) / rate) * FPS) - 1;
           const holdT = interpolate(f, [playFrames, dur], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
           const style = {width: '100%', height: '100%', objectFit: 'cover' as const, transform: `scale(${1.04 + 0.03 * holdT})`};
@@ -124,7 +124,7 @@ export const Storybook: React.FC<{withAudio?: boolean}> = ({withAudio = true}) =
   return (
     <AbsoluteFill style={{background: '#000'}}>
       {BEATS.map((b, i) => {
-        const dur = b.sec * FPS;
+        const dur = Math.round(b.sec * FPS);
         return (
           <Sequence key={b.n} from={starts.s[i]} durationInFrames={i === BEATS.length - 1 ? dur + TITLE_SEC * FPS : dur}>
             <Still b={b} dur={i === BEATS.length - 1 ? dur + TITLE_SEC * FPS : dur} />
