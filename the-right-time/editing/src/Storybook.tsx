@@ -16,7 +16,7 @@ export const BEATS: Beat[] = [
   {n: 3, sec: 8, move: 'in', clip: 'c03.mp4', clipSec: 5.0},
   {n: 4, sec: 10, move: 'left', fx: ['glow'], clip: 'c04.mp4', clipSec: 5.0},
   {n: 5, sec: 8, move: 'right', fx: ['motes'], clip: 'c05.mp4', clipSec: 2.2},
-  {n: 6, sec: 7, move: 'in', split: 'f06b'}, // split-screen: Yair's university | Sharone's OT studies
+  {n: 6, sec: 7, move: 'in', split: 'f06b', clip: 'c06.mp4', clipSec: 5.0}, // split-screen: Yair's university | Sharone's OT studies
   {n: 7, sec: 8, move: 'in', fx: ['rain'], clip: 'c07.mp4', clipSec: 5.4},
   {n: 8, sec: 8, move: 'in', clip: 'c08.mp4', clipSec: 5.0},
   {n: 9, sec: 7, caption: '2020', move: 'right', clip: 'c09.mp4', clipSec: 5.0},
@@ -60,10 +60,23 @@ const Still: React.FC<{b: Beat; dur: number}> = ({b, dur}) => {
         <div style={{display: 'flex', width: '100%', height: '100%', gap: 6, background: '#111'}}>
           {[`f${String(b.n).padStart(2, '0')}`, b.split].map((name, k) => (
             <div key={name} style={{flex: 1, overflow: 'hidden'}}>
-              <Img
-                src={staticFile(`frames/${name}.jpg`)}
-                style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${scale}) translate(${(k ? 1 : -1) * 1.5 * t}%, 0)`}}
-              />
+              {k === 0 && b.clip ? (
+                (() => {
+                  const rate = Math.min(1, Math.max(0.7, (b.clipSec ?? 8) / (dur / FPS)));
+                  const playFrames = Math.floor(((b.clipSec ?? 8) / rate) * FPS) - 1;
+                  const st = {width: '100%', height: '100%', objectFit: 'cover' as const};
+                  return f < playFrames ? (
+                    <OffthreadVideo src={staticFile(`clips/${b.clip}`)} muted playbackRate={rate} style={st} />
+                  ) : (
+                    <Img src={staticFile(`clips/${b.clip!.replace('.mp4', '_last.jpg')}`)} style={st} />
+                  );
+                })()
+              ) : (
+                <Img
+                  src={staticFile(`frames/${name}.jpg`)}
+                  style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${scale}) translate(${(k ? 1 : -1) * 1.5 * t}%, 0)`}}
+                />
+              )}
             </div>
           ))}
         </div>
